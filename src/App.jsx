@@ -6,9 +6,6 @@ function App() {
   return (
     <div>
       <NavigationBar />
-      <Routes>
-        {/**<Route path="/" element={<LandinPage />} />**/}
-      </Routes>
     </div>
   )
 }

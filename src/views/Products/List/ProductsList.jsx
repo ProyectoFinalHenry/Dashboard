@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Button } from "@nextui-org/react";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import NavigationBar from '../../../components/NavBar/NavigationBar.jsx'
 import './ProductsList.css';
 
 const ProductsList = () => {
@@ -50,6 +51,7 @@ const ProductsList = () => {
     }
     return (
         <div>
+            <NavigationBar />
             <h1>List of Products</h1>
             <div>
                 <Button

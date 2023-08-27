@@ -35,7 +35,7 @@ const NavigationBar = () => {
                             </Link>
                         </NavbarItem>
                         <NavbarItem>
-                            <Link color="foreground" href="#">
+                            <Link color="foreground" href="/products">
                                 Productos
                             </Link>
                         </NavbarItem>

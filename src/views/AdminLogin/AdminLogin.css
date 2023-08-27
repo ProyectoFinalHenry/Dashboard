@@ -1,131 +1,131 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
 
 .admin-login{
-    background-color: #20293a;
-    width: 100%;
-    min-height: 100vh;
-    overflow: hidden;
-    color: #f7f7f5;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Ubuntu', sans-serif;
+    background-color: #20293a !important;
+    width: 100% !important;
+    min-height: 100vh !important;
+    overflow: hidden !important;
+    color: #f7f7f5 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    font-family: 'Ubuntu', sans-serif !important;
+    overflow: visible !important;
 }
 
 .admin-login__form{
-    border: 1px solid #01eefe;
-    padding: 3.5em 2.5em;
-    text-align: center;
-    border-radius: 5px;
-    width: 25%;
-    min-width: 350px;
+  border: 1px solid #01eefe !important;
+  padding: 3.5em 2.5em !important;
+  text-align: center !important;
+  border-radius: 5px !important;
+  width: 25% !important;
+  min-width: 350px !important;
 }
 
+
+
 .admin-login__title{
-    margin: 0 0 1.5em 0;
-    padding: 0px;
+    margin: 0 0 1.5em 0 !important;
+    padding: 0px !important;
 }
 
 .admin-login__form-group{
-    position: relative;
-    margin-bottom: 2.3em;
+    position: relative !important;
+    margin-bottom: 2.3em !important;
 }
 
-
 .admin-login__form-label{
-    position: absolute;
-    top: -13%;
-    left: 3%;
-    background-color: #20293a;
-    font-size: 12px;
-    padding: 0 5px;
-    color:  #01eefe;
+    position: absolute !important;
+    top: -13% !important;
+    left: 3% !important;
+    background-color: #20293a !important;
+    font-size: 12px !important;
+    padding: 0 5px !important;
+    color:  #01eefe !important;
 }
 
 /* Estilos por defecto para el input */
 .admin-login__form-input {
-    background-color: #ff000000;
-    border: 1px solid #01eefe;
-    padding: 10px;
-    border-radius: 4px;
-    font-size: 16px;
-    color: #f7f7f5;
-    width: 100%;
-    padding-left: 35px;
-  }
-  
-  /* Estilos para el estado de hover del input */
-  .admin-login__form-input:hover {
-    background-color: none;
+    background-color: #ff000000 !important;
+    border: 1px solid #01eefe !important;
+    padding: 10px !important;
+    border-radius: 4px !important;
+    font-size: 16px !important;
+    color: #f7f7f5 !important;
+    width: 100% !important;
+    padding-left: 35px !important;
+}
+
+/* Estilos para el estado de hover del input */
+.admin-login__form-input:hover {
+    background-color: none !important;
     /* Otras propiedades para el hover aquí */
-  }
-  
-  /* Estilos para el estado de focus del input */
-  .admin-login__form-input:focus {
-    background-color: none;
-    outline: none; /* Esto elimina el borde de enfoque predeterminado */
-  }
-  
+}
 
-  .admin-login__error{
-    color: red;
-    display: block;
-    margin-top: 1.5em;
-    border: 1px solid rgba(255, 0, 0, 0.486);
-    background-color: rgba(255, 0, 0, 0.055);
-    padding: .5em;
-    font-weight: 100;
-    font-size: 14px;
-  }
+/* Estilos para el estado de focus del input */
+.admin-login__form-input:focus {
+    background-color: none !important;
+    outline: none !important; /* Esto elimina el borde de enfoque predeterminado */
+}
 
-  
-  /* BUTTON */
-  .admin-login__form-button{
-    background-color: #01eefe;
-    color: #20293a;
-    border: none;
-    padding: .7em 1.4em;
-    cursor: pointer;
-    border-radius: 4px;
-    outline: none;
-    text-align: inherit;
-    font-weight: 600;
-    }
+.admin-login__error{
+    color: red !important;
+    display: block !important;
+    margin-top: 1.5em !important;
+    border: 1px solid rgba(255, 0, 0, 0.486) !important;
+    background-color: rgba(255, 0, 0, 0.055) !important;
+    padding: .5em !important;
+    font-weight: 100 !important;
+    font-size: 14px !important;
+}
 
-    .admin-login__form-button:hover {
-      background-color: #74f1fa;
-      }
-    
-    .admin-login__form-button[disabled] {
-        cursor: not-allowed; 
-        background-color: #01edfe42; 
-        position: relative; 
-    }
-    
+/* BUTTON */
+.admin-login__form-button{
+    background-color: #01eefe !important;
+    color: #20293a !important;
+    border: none !important;
+    padding: .7em 1.4em !important;
+    cursor: pointer !important;
+    border-radius: 4px !important;
+    outline: none !important;
+    text-align: inherit !important;
+    font-weight: 600 !important;
+    overflow: visible !important;
+}
 
- /* FORGOT EMAIL/PASSWORD MESSAGE */
+.admin-login__form-button:hover {
+    background-color: #74f1fa !important;
+    overflow: visible !important;
+}
 
-    .admin-login__form-span{
-      color: #01eefe;
-      font-size: 13px;
-      cursor: pointer;
-      font-weight: 500;
-    }
+.admin-login__form-button[disabled] {
+    cursor: not-allowed !important;
+    background-color: #01edfe42 !important;
+    position: relative !important;
+    overflow: visible !important;
+}
 
-    .admin-login__form-group-message-btn{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 3em;
-    }
+/* FORGOT EMAIL/PASSWORD MESSAGE */
+.admin-login__form-span{
+    color: #01eefe !important;
+    font-size: 13px !important;
+    cursor: pointer !important;
+    font-weight: 500 !important;
+}
 
-  /* ICONS */
+.admin-login__form-group-message-btn{
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-top: 3em !important;
+}
 
-  .admin-login__form-icon{
-    position: absolute;
-    top: 30%;
-    left: 4%;
-    color: #01eefe;
-    font-size: 16px;
-  }
+/* ICONS */
+.admin-login__form-icon{
+    position: absolute !important;
+    top: 30% !important;
+    left: 4% !important;
+    color: #01eefe !important;
+    font-size: 16px !important;
+}

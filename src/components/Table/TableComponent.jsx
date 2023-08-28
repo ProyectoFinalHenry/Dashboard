@@ -9,11 +9,13 @@ import {
     Pagination,
     getKeyValue
 } from "@nextui-org/react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@nextui-org/react";
 import { FaPen, FaEye, FaTrash } from "react-icons/fa";
 import './Table.css';
 
 const TableComponent = ({ data, columns, actions }) => {
+    const navigate = useNavigate();
     const [page, setPage] = React.useState(1);
     const rowsPerPage = 10;
 
@@ -36,10 +38,35 @@ const TableComponent = ({ data, columns, actions }) => {
                 return <FaTrash />;
         }
     }
-    const actionButtons = actions.map((item, i) => {
+    const handleRedirectDetail = (id) => {
+        navigate(`detail/${id}`);
+    }
+    const handleRedirectEdit = (id) => {
+        navigate("detail");
+    }
+    const handleRedirectDelete = (id) => {
+        navigate("detail");
+    }
 
-        return <Button size="sm" className="action-buttons" key={i}>{getIcon(item)}</Button>
-    });
+    const getRedirectFunction = (action, id) => {
+        switch (action) {
+            case "edit":
+                return () => handleRedirectEdit(id);
+            case "detail":
+                return () => handleRedirectDetail(id);
+            case "delete":
+                return () => handleRedirectDelete(id);
+        }
+    }
+    const getActionButtons = (id) => {
+        return actions.map((action, i) => {
+            return <Button
+                size="sm"
+                className="action-buttons"
+                key={i}
+                onClick={getRedirectFunction(action, id)}>{getIcon(action)}</Button>
+        });
+    }
     const pagination = <div className="flex w-full justify-center">
         <Pagination
             isCompact
@@ -65,13 +92,13 @@ const TableComponent = ({ data, columns, actions }) => {
                 </TableHeader>
                 <TableBody items={items}>
                     {(item) => (
-                        <TableRow key={item.id}>
-                            {(columnKey) => <TableCell className={(columnKey === "actions") ? "actions-cont" : ''}>{(columnKey === "actions") ? actionButtons : getKeyValue(item, columnKey)}</TableCell>}
+                        < TableRow key={item.id}>
+                            {(columnKey) => <TableCell className={(columnKey === "actions") ? "actions-cont" : ''}>{(columnKey === "actions") ? getActionButtons(item.id) : getKeyValue(item, columnKey)}</TableCell>}
                         </TableRow>
                     )}
                 </TableBody>
             </Table>
-        </div>
+        </div >
     )
 }
 

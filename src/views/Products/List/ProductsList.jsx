@@ -27,7 +27,7 @@ const ProductsList = () => {
     const columns = [
         {
             key: "name",
-            label: "Nombre",
+            label: "NOMBRE",
         },
         {
             key: "description",
@@ -35,7 +35,7 @@ const ProductsList = () => {
         },
         {
             key: "price",
-            label: "PRICE",
+            label: "PRECIO",
         },
         {
             key: "stock",
@@ -43,7 +43,7 @@ const ProductsList = () => {
         },
         {
             key: "actions",
-            label: "ACTIONS",
+            label: "ACCIONES",
         },
     ];
     const handleCreateProduct = () => {

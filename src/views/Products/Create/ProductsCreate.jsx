@@ -75,7 +75,7 @@ const ProductsCreate = () => {
                 const base64data = 'data:image/png;base64,' + reader.result.split(',')[1];
 
                 try {
-                    const { data } = await axios.post('coffee/upload', { file: base64data, fname: name });
+                    const { data } = await axios.post('http://localhost:3001/coffee/upload', { file: base64data, fname: name });
                     const { message, imageUrl } = data;
                     console.log(message);
                     setUrlImage(imageUrl);
@@ -99,12 +99,12 @@ const ProductsCreate = () => {
 
     const handlePostCoffee = async (postData) => {
         try {
-            const { data } = await axios.post('coffee', postData);
+            const { data } = await axios.post('http://localhost:3001/coffee', postData);
             const { status } = data;
             if (status) {
                 notifySuccess("¡Producto creado con exito!");
                 setTimeout(() => {
-                    window.location.href = '/';
+                    window.location.href = '/products';
                 }, 1 * 3000);
             }
 

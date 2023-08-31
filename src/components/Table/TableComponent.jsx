@@ -9,6 +9,14 @@ import {
     Pagination,
     getKeyValue
 } from "@nextui-org/react";
+import {
+    Modal,
+    ModalContent,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
+    useDisclosure
+} from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@nextui-org/react";
 import { FaPen, FaEye, FaTrash } from "react-icons/fa";
@@ -16,6 +24,7 @@ import './Table.css';
 
 const TableComponent = ({ data, columns, actions }) => {
     const navigate = useNavigate();
+    const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [page, setPage] = React.useState(1);
     const rowsPerPage = 10;
 
@@ -42,7 +51,7 @@ const TableComponent = ({ data, columns, actions }) => {
         navigate(`detail/${id}`);
     }
     const handleRedirectEdit = (id) => {
-        navigate("detail");
+        navigate(`update/${id}`);
     }
     const handleRedirectDelete = (id) => {
         navigate("detail");
@@ -55,7 +64,7 @@ const TableComponent = ({ data, columns, actions }) => {
             case "detail":
                 return () => handleRedirectDetail(id);
             case "delete":
-                return () => handleRedirectDelete(id);
+                return onOpen;
         }
     }
     const getActionButtons = (id) => {
@@ -81,6 +90,28 @@ const TableComponent = ({ data, columns, actions }) => {
 
     return (
         <div>
+            <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+                <ModalContent>
+                    {(onClose) => (
+                        <>
+                            <ModalHeader className="flex flex-col gap-1">Borrar Producto</ModalHeader>
+                            <ModalBody>
+                                <p>
+                                    ¿Confirmar Borrado de Producto?
+                                </p>
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button color="danger" variant="light" onPress={onClose}>
+                                    Close
+                                </Button>
+                                <Button color="primary" onPress={onClose}>
+                                    Confirmar
+                                </Button>
+                            </ModalFooter>
+                        </>
+                    )}
+                </ModalContent>
+            </Modal>
             <Table
                 aria-label="Example table with dynamic content"
                 bottomContent={pagination}

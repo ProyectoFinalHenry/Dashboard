@@ -237,7 +237,7 @@ const ProductsCreate = () => {
                         <p>{(!originInput) ? "* Este campo es requerido. Ingresa un valor." : errors.origin?.message}</p>
                     </div>
                     <div>
-                        <input type="submit" value="submit" className="form-submit-button" />
+                        <input type="submit" value="Registrar" className="form-submit-button" />
                     </div>
                 </form>
             </div>

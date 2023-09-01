@@ -13,7 +13,7 @@ const ProductsList = () => {
     const navigate = useNavigate();
 
     async function getProducts() {
-        const { data } = await axios.get("http://localhost:3001/coffee/");
+        const { data } = await axios.get("coffee/");
         setProducts(data)
     }
     useEffect(() => {

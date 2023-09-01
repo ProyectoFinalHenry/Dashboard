@@ -36,7 +36,7 @@ const ProductsCreate = () => {
 
     const getAllTypesCoffee = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:3001/category/${TYPE_GET_VALUE}`);
+            const { data } = await axios.get(`category/${TYPE_GET_VALUE}`);
             setTypes(data);
         } catch (error) {
             console.log("error:", error);
@@ -44,7 +44,7 @@ const ProductsCreate = () => {
     }
     const getAllRoastsCoffee = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:3001/category/${ROAST_GET_VALUE}`);
+            const { data } = await axios.get(`category/${ROAST_GET_VALUE}`);
             setRoasts(data);
         } catch (error) {
             console.log("error:", error);
@@ -52,7 +52,7 @@ const ProductsCreate = () => {
     }
     const getAllOriginsCoffee = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:3001/category/${ORIGIN_GET_VALUE}`);
+            const { data } = await axios.get(`category/${ORIGIN_GET_VALUE}`);
             setOrigins(data);
         } catch (error) {
             console.log("error:", error);
@@ -75,7 +75,7 @@ const ProductsCreate = () => {
                 const base64data = 'data:image/png;base64,' + reader.result.split(',')[1];
 
                 try {
-                    const { data } = await axios.post('http://localhost:3001/coffee/upload', { file: base64data, fname: name });
+                    const { data } = await axios.post('coffee/upload', { file: base64data, fname: name });
                     const { message, imageUrl } = data;
                     console.log(message);
                     setUrlImage(imageUrl);
@@ -99,7 +99,7 @@ const ProductsCreate = () => {
 
     const handlePostCoffee = async (postData) => {
         try {
-            const { data } = await axios.post('http://localhost:3001/coffee', postData);
+            const { data } = await axios.post('coffee', postData);
             const { status } = data;
             if (status) {
                 notifySuccess("¡Producto creado con exito!");

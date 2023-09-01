@@ -12,7 +12,7 @@ const ProductsDetail = () => {
 
     const getCoffeeDetail = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:3001/coffee/${id}`);
+            const { data } = await axios.get(`coffee/${id}`);
             setProductDetail(data);
         } catch (error) {
             console.log(error);

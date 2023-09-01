@@ -54,7 +54,7 @@ const ProductsUpdate = () => {
     }
     const getCoffeeDetail = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:3001/coffee/${id}`);
+            const { data } = await axios.get(`coffee/${id}`);
             setCoffee(data);
             setDefaultInputsValues(data);
         } catch (error) {
@@ -64,7 +64,7 @@ const ProductsUpdate = () => {
 
     const getAllTypesCoffee = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:3001/category/${TYPE_GET_VALUE}`);
+            const { data } = await axios.get(`category/${TYPE_GET_VALUE}`);
             setTypes(data);
         } catch (error) {
             console.log("error:", error);
@@ -72,7 +72,7 @@ const ProductsUpdate = () => {
     }
     const getAllRoastsCoffee = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:3001/category/${ROAST_GET_VALUE}`);
+            const { data } = await axios.get(`category/${ROAST_GET_VALUE}`);
             setRoasts(data);
         } catch (error) {
             console.log("error:", error);
@@ -80,7 +80,7 @@ const ProductsUpdate = () => {
     }
     const getAllOriginsCoffee = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:3001/category/${ORIGIN_GET_VALUE}`);
+            const { data } = await axios.get(`category/${ORIGIN_GET_VALUE}`);
             setOrigins(data);
         } catch (error) {
             console.log("error:", error);
@@ -103,7 +103,7 @@ const ProductsUpdate = () => {
                 const base64data = 'data:image/png;base64,' + reader.result.split(',')[1];
 
                 try {
-                    const { data } = await axios.post('http://localhost:3001/coffee/upload', { file: base64data, fname: name });
+                    const { data } = await axios.post('coffee/upload', { file: base64data, fname: name });
                     const { message, imageUrl } = data;
                     console.log(message);
                     setUrlImage(imageUrl);
@@ -156,7 +156,7 @@ const ProductsUpdate = () => {
     const handlePutCoffee = async (putData) => {
         const updateData = setPutData(putData);
         try {
-            const { data } = await axios.put(`http://localhost:3001/coffee/${coffee?.id}`, {
+            const { data } = await axios.put(`coffee/${coffee?.id}`, {
                 data: updateData
             });
             const { status } = data;

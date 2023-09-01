@@ -48,7 +48,7 @@ const TableComponent = ({ data, columns, actions }) => {
 
     const handleDeleteProduct = async (id) => {
         try {
-            const { status } = await axios.delete(`http://localhost:3001/coffee/${id}`);
+            const { status } = await axios.delete(`coffee/${id}`);
             if (status) {
                 notifySuccess('Producto eliminado con exito.');
                 setTimeout(() => {

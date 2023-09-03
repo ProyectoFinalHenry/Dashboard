@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import { ToastContainer } from 'react-toastify';
 import { notifySuccess } from '../../../functions/toastify'
 import NavigationBar from '../../../components/NavBar/NavigationBar';
+import BreadCum from "../../../components/BreadCum/BreadCum";
 import 'react-toastify/dist/ReactToastify.css';
 import './ProductsCreate.css'
 
@@ -129,6 +130,7 @@ const ProductsCreate = () => {
     return (
         <div className="form-create-container">
             <NavigationBar />
+            <BreadCum />
             <div>
                 <div>
                     <h1 className="form-header-text">Formulario de creación de productos</h1>

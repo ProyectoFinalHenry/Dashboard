@@ -1,0 +1,4 @@
+.chart-first-cont {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}

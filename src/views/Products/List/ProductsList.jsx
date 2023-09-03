@@ -6,6 +6,7 @@ import { FaPlus } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import NavigationBar from '../../../components/NavBar/NavigationBar.jsx'
 import './ProductsList.css';
+import BreadCum from "../../../components/BreadCum/BreadCum";
 
 const ProductsList = () => {
 
@@ -52,6 +53,7 @@ const ProductsList = () => {
     return (
         <div>
             <NavigationBar />
+            <BreadCum />
             <h1>List of Products</h1>
             <div>
                 <Button

@@ -9,6 +9,7 @@ import NavigationBar from '../../../components/NavBar/NavigationBar';
 import { useParams } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import './ProductsUpdate.css'
+import BreadCum from "../../../components/BreadCum/BreadCum";
 
 const ProductsUpdate = () => {
     const { id } = useParams();
@@ -188,6 +189,7 @@ const ProductsUpdate = () => {
     return (
         <div className="form-create-container">
             <NavigationBar />
+            <BreadCum />
             <div>
                 <div>
                     <h1 className="form-header-text">Formulario de actualización de productos</h1>

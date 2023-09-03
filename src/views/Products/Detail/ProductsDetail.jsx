@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import NavigationBar from '../../../components/NavBar/NavigationBar';
 import ProductDetailCard from '../../../components/ProductDetailCard/ProductDetailCard';
+import BreadCum from '../../../components/BreadCum/BreadCum';
 import './ProductsDetail.css';
 import { useParams } from 'react-router-dom';
 
@@ -26,6 +27,7 @@ const ProductsDetail = () => {
     return (
         <div>
             <NavigationBar />
+            <BreadCum />
             <h1>Details View</h1>
             <ProductDetailCard detailData={productDetail} />
         </div>

@@ -1,12 +1,12 @@
 import Chart from 'react-apexcharts';
 import { Card, CardBody } from "@nextui-org/react";
 import './CategoriesChart.css';
-const CategoriesChart = () => {
+const CategoriesChart = ({ categoriesData, categoriesLabels }) => {
 
     const state = {
-
-        series: [44, 55, 41, 17, 15],
-        options: {
+        series: categoriesData,
+        chartOptions: {
+            labels: categoriesLabels,
             chart: {
                 type: 'donut',
             },
@@ -23,7 +23,6 @@ const CategoriesChart = () => {
             }]
         },
 
-
     };
 
     return (
@@ -33,11 +32,11 @@ const CategoriesChart = () => {
                     <h1><strong>Categorias</strong></h1>
                     <Chart
                         className='categories-chart'
-                        options={state.options}
+                        options={state.chartOptions}
                         series={state.series}
                         type="donut"
-                        width={350}
-                        height={250}
+                        width={600}
+                        height={335}
                     />
                 </CardBody>
             </Card>

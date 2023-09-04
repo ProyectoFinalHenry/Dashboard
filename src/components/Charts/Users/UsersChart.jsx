@@ -1,19 +1,19 @@
 import Chart from 'react-apexcharts';
 import { Card, CardBody } from "@nextui-org/react";
 import './UsersChart.css';
-const UsersChart = () => {
+const UsersChart = ({ usersData, usersCategories }) => {
     const state = {
         options: {
             chart: {
                 id: 'apexchart-example'
             },
             xaxis: {
-                categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+                categories: usersCategories
             }
         },
         series: [{
-            name: 'series-1',
-            data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
+            name: 'Sep',
+            data: usersData
         }]
     }
     return (
@@ -26,8 +26,8 @@ const UsersChart = () => {
                         options={state.options}
                         series={state.series}
                         type="bar"
-                        width={350}
-                        height={205}
+                        width={700}
+                        height={320}
                     />
                 </CardBody>
             </Card>

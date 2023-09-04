@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Table,
     TableHeader,
@@ -11,16 +11,17 @@ import {
 } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@nextui-org/react";
+import axios from "axios";
 import { FaPen, FaEye, FaTrash } from "react-icons/fa";
+import { notifySuccess } from "../../functions/toastify";
+import { ToastContainer } from 'react-toastify';
 import './Table.css';
 
 const TableComponent = ({ data, columns, actions }) => {
     const navigate = useNavigate();
     const [page, setPage] = React.useState(1);
     const rowsPerPage = 10;
-
     const pages = Math.ceil(data.length / rowsPerPage);
-
     const items = React.useMemo(() => {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
@@ -42,10 +43,21 @@ const TableComponent = ({ data, columns, actions }) => {
         navigate(`detail/${id}`);
     }
     const handleRedirectEdit = (id) => {
-        navigate("detail");
+        navigate(`update/${id}`);
     }
-    const handleRedirectDelete = (id) => {
-        navigate("detail");
+
+    const handleDeleteProduct = async (id) => {
+        try {
+            const { status } = await axios.delete(`coffee/${id}`);
+            if (status) {
+                notifySuccess('Producto eliminado con exito.');
+                setTimeout(() => {
+                    window.location.href = '/products';
+                }, 1 * 3000);
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
     }
 
     const getRedirectFunction = (action, id) => {
@@ -55,7 +67,7 @@ const TableComponent = ({ data, columns, actions }) => {
             case "detail":
                 return () => handleRedirectDetail(id);
             case "delete":
-                return () => handleRedirectDelete(id);
+                return () => handleDeleteProduct(id);
         }
     }
     const getActionButtons = (id) => {
@@ -78,9 +90,20 @@ const TableComponent = ({ data, columns, actions }) => {
             onChange={(page) => setPage(page)}
         />
     </div>;
-
     return (
         <div>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <Table
                 aria-label="Example table with dynamic content"
                 bottomContent={pagination}

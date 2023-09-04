@@ -1,0 +1,14 @@
+.page-breadcum-cont {
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 1px 2px 9px 0px #80808075;
+}
+
+.page-breadcum {
+    display: inline-flex;
+}
+
+.page-breadcum svg {
+    margin-top: 5px;
+}

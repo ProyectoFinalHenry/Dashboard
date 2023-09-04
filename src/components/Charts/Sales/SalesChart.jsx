@@ -1,11 +1,11 @@
 import Chart from 'react-apexcharts';
 import { Card, CardBody } from "@nextui-org/react";
 import './SalesChart.css'
-const SalesChart = () => {
+const SalesChart = ({ salesData, salesCategories }) => {
     const state = {
         series: [{
             name: "Desktops",
-            data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+            data: salesData
         }],
         options: {
             chart: {
@@ -32,7 +32,7 @@ const SalesChart = () => {
                 },
             },
             xaxis: {
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+                categories: salesCategories,
             }
         },
 
@@ -49,7 +49,7 @@ const SalesChart = () => {
                         options={state.options}
                         series={state.series}
                         type="line"
-                        width={1200}
+                        width={700}
                         height={320}
                     />
                 </CardBody>

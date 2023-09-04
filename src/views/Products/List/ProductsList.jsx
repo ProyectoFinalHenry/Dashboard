@@ -6,6 +6,7 @@ import { FaPlus } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import NavigationBar from '../../../components/NavBar/NavigationBar.jsx'
 import './ProductsList.css';
+import BreadCum from "../../../components/BreadCum/BreadCum";
 
 const ProductsList = () => {
 
@@ -13,7 +14,7 @@ const ProductsList = () => {
     const navigate = useNavigate();
 
     async function getProducts() {
-        const { data } = await axios.get("http://localhost:3001/coffee/");
+        const { data } = await axios.get("coffee/");
         setProducts(data)
     }
     useEffect(() => {
@@ -27,7 +28,7 @@ const ProductsList = () => {
     const columns = [
         {
             key: "name",
-            label: "Nombre",
+            label: "NOMBRE",
         },
         {
             key: "description",
@@ -35,7 +36,7 @@ const ProductsList = () => {
         },
         {
             key: "price",
-            label: "PRICE",
+            label: "PRECIO",
         },
         {
             key: "stock",
@@ -43,7 +44,7 @@ const ProductsList = () => {
         },
         {
             key: "actions",
-            label: "ACTIONS",
+            label: "ACCIONES",
         },
     ];
     const handleCreateProduct = () => {
@@ -52,6 +53,7 @@ const ProductsList = () => {
     return (
         <div>
             <NavigationBar />
+            <BreadCum />
             <h1>List of Products</h1>
             <div>
                 <Button

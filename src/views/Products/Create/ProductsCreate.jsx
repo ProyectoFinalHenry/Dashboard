@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import { ToastContainer } from 'react-toastify';
 import { notifySuccess } from '../../../functions/toastify'
 import NavigationBar from '../../../components/NavBar/NavigationBar';
+import BreadCum from "../../../components/BreadCum/BreadCum";
 import 'react-toastify/dist/ReactToastify.css';
 import './ProductsCreate.css'
 
@@ -36,7 +37,7 @@ const ProductsCreate = () => {
 
     const getAllTypesCoffee = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:3001/category/${TYPE_GET_VALUE}`);
+            const { data } = await axios.get(`category/${TYPE_GET_VALUE}`);
             setTypes(data);
         } catch (error) {
             console.log("error:", error);
@@ -44,7 +45,7 @@ const ProductsCreate = () => {
     }
     const getAllRoastsCoffee = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:3001/category/${ROAST_GET_VALUE}`);
+            const { data } = await axios.get(`category/${ROAST_GET_VALUE}`);
             setRoasts(data);
         } catch (error) {
             console.log("error:", error);
@@ -52,7 +53,7 @@ const ProductsCreate = () => {
     }
     const getAllOriginsCoffee = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:3001/category/${ORIGIN_GET_VALUE}`);
+            const { data } = await axios.get(`category/${ORIGIN_GET_VALUE}`);
             setOrigins(data);
         } catch (error) {
             console.log("error:", error);
@@ -104,7 +105,7 @@ const ProductsCreate = () => {
             if (status) {
                 notifySuccess("¡Producto creado con exito!");
                 setTimeout(() => {
-                    window.location.href = '/';
+                    window.location.href = '/products';
                 }, 1 * 3000);
             }
 
@@ -129,6 +130,7 @@ const ProductsCreate = () => {
     return (
         <div className="form-create-container">
             <NavigationBar />
+            <BreadCum />
             <div>
                 <div>
                     <h1 className="form-header-text">Formulario de creación de productos</h1>
@@ -237,7 +239,7 @@ const ProductsCreate = () => {
                         <p>{(!originInput) ? "* Este campo es requerido. Ingresa un valor." : errors.origin?.message}</p>
                     </div>
                     <div>
-                        <input type="submit" value="submit" className="form-submit-button" />
+                        <input type="submit" value="Registrar" className="form-submit-button" />
                     </div>
                 </form>
             </div>

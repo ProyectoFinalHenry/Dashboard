@@ -34,7 +34,7 @@ const CategoriesChart = ({ categoriesData, categoriesLabels }) => {
                         options={state.chartOptions}
                         series={state.series}
                         type="donut"
-                        width={640}
+                        width={645}
                         height={350}
                     />
                 </CardBody>

@@ -8,7 +8,7 @@ const Users = () => {
 
   async function getUsers() {
     try {
-      const { data } = await axios.get("http://localhost:3001/management/user/");
+      const { data } = await axios.get("/management/user");
       setUsers(data);
     } catch (error) {
       console.error("Error al obtener la lista de usuarios", error);
@@ -42,7 +42,7 @@ const Users = () => {
 
   const handleActivateDeactivate = async (userId, action, getUsers) => {
     try {
-      const actionUrl = `http://localhost:3001/management/user/status/${userId}/`;
+      const actionUrl = `/management/user/status/${userId}/`;
 
       await axios.put(actionUrl, {
         action: action,

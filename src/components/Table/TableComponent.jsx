@@ -91,7 +91,7 @@ const TableComponent = ({ data, columns, actions }) => {
         />
     </div>;
     return (
-        <div>
+        <div className="table-products-cont">
             <ToastContainer
                 position="top-right"
                 autoClose={5000}

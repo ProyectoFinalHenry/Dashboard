@@ -2,3 +2,7 @@
     display: flex !important;
     color: #e7bc71;
 }
+.detail-products-card{
+    margin: 1rem;
+    padding: 1rem;
+}

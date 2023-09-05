@@ -17,7 +17,7 @@ export default function ProductDetailCard({ detailData }) {
     } = detailData;
 
     return (
-        <Card className="py-4">
+        <Card className="detail-products-card">
             <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
                 <p className="text-tiny uppercase font-bold">{name}</p>
                 <small className="text-default-500">stock: {stock}</small>

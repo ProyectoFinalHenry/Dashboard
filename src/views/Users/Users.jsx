@@ -1,11 +1,12 @@
 import NavigationBar from "../../components/NavBar/NavigationBar";
 import TableUserBan from "../../components/TableUserBan/TableUserBan";
 import { useState, useEffect } from "react";
+import BreadCum from "../../components/BreadCum/BreadCum";
 import axios from "axios";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
-
+  const breadcumItems = ['Usuarios'];
   async function getUsers() {
     try {
       const { data } = await axios.get("http://localhost:3001/management/user");
@@ -57,15 +58,15 @@ const Users = () => {
   return (
     <div>
       <NavigationBar />
-      <h1>Lista de usuarios</h1>
+      <BreadCum items={breadcumItems} />
       <TableUserBan
-  columns={columns}
-  data={users}
-  getUsers={getUsers} 
-  handleActivateDeactivate={(userId, action) =>
-    handleActivateDeactivate(userId, action, getUsers)
-  }
-/>
+        columns={columns}
+        data={users}
+        getUsers={getUsers}
+        handleActivateDeactivate={(userId, action) =>
+          handleActivateDeactivate(userId, action, getUsers)
+        }
+      />
     </div>
   );
 };

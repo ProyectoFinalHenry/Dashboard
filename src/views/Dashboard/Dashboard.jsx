@@ -16,7 +16,9 @@ const Dashboard = () => {
     const [usersData, setUsersData] = useState([]);
     const [usersCategories, setUsersCategories] = useState([]);
     const [coffeesData, setCoffeesData] = useState([]);
-
+    const breadcumItems = [
+        'Panel',
+    ];
     useEffect(() => {
         getChartsData();
     }, []);
@@ -46,7 +48,7 @@ const Dashboard = () => {
     return (
         <div>
             <NavigationBar />
-            <BreadCum />
+            <BreadCum items={breadcumItems} />
             <div className='chart-cont'>
                 <UsersChart
                     usersData={usersData}

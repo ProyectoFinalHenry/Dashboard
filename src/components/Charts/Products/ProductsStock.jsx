@@ -40,7 +40,7 @@ const ProductsStock = ({ coffeesData }) => {
                         options={state.options}
                         series={state.series}
                         type="bar"
-                        width={500}
+                        width={600}
                         height={320}
                     />
                 </CardBody>

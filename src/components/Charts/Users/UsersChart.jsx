@@ -26,7 +26,7 @@ const UsersChart = ({ usersData, usersCategories }) => {
                         options={state.options}
                         series={state.series}
                         type="bar"
-                        width={600}
+                        width={500}
                         height={340}
                     />
                 </CardBody>

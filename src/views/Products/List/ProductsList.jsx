@@ -17,9 +17,14 @@ const ProductsList = () => {
         const { data } = await axios.get("coffee/");
         setProducts(data)
     }
+
     useEffect(() => {
         getProducts()
     }, []);
+
+    const breadCumItems = [
+        'Productos',
+    ];
     const actions = [
         'edit',
         'detail',
@@ -53,13 +58,13 @@ const ProductsList = () => {
     return (
         <div>
             <NavigationBar />
-            <BreadCum />
-            <h1>List of Products</h1>
+            <BreadCum items={breadCumItems} />
             <div>
                 <Button
                     size="sm"
                     className="create-button-list"
-                    onClick={handleCreateProduct}><FaPlus /></Button>
+                    onClick={handleCreateProduct}><FaPlus />
+                </Button>
             </div>
             <TableComponent columns={columns} actions={actions} data={product} />
         </div >

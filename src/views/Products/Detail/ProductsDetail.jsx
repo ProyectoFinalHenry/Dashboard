@@ -24,11 +24,15 @@ const ProductsDetail = () => {
         getCoffeeDetail();
     }, []);
 
+    const breadCumItems = [
+        'Productos',
+        'Detalle'
+    ];
+
     return (
         <div>
             <NavigationBar />
-            <BreadCum />
-            <h1>Details View</h1>
+            <BreadCum items={breadCumItems} />
             <ProductDetailCard detailData={productDetail} />
         </div>
     )

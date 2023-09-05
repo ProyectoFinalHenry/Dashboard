@@ -5,6 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import { notifySuccess } from '../../../functions/toastify'
 import NavigationBar from '../../../components/NavBar/NavigationBar';
 import BreadCum from "../../../components/BreadCum/BreadCum";
+import { Card, CardBody } from "@nextui-org/react";
 import 'react-toastify/dist/ReactToastify.css';
 import './ProductsCreate.css'
 
@@ -28,6 +29,11 @@ const ProductsCreate = () => {
     const ROAST_GET_VALUE = "RoastingProfile";
     const ORIGIN_GET_VALUE = "Origin";
     let url = '';
+
+    const breadCumItems = [
+        'Productos',
+        'Crear'
+    ];
 
     useEffect(() => {
         getAllTypesCoffee();
@@ -130,11 +136,8 @@ const ProductsCreate = () => {
     return (
         <div className="form-create-container">
             <NavigationBar />
-            <BreadCum />
+            <BreadCum items={breadCumItems} />
             <div>
-                <div>
-                    <h1 className="form-header-text">Formulario de creación de productos</h1>
-                </div>
                 <ToastContainer
                     position="top-right"
                     autoClose={5000}
@@ -147,101 +150,106 @@ const ProductsCreate = () => {
                     pauseOnHover
                     theme="light"
                 />
-                <form className="form-create" onSubmit={handleSubmit((data) => {
-                    handleUploadFile();
-                    setTimeout(() => {
-                        const coffeeObject = setPostCoffeeObject(data);
-                        setPostObject(coffeeObject);
-                        handlePostCoffee(coffeeObject);
+                <Card className="form-create-card">
+                    <CardBody>
+                        <form className="form-create" onSubmit={handleSubmit((data) => {
+                            handleUploadFile();
+                            setTimeout(() => {
+                                const coffeeObject = setPostCoffeeObject(data);
+                                setPostObject(coffeeObject);
+                                handlePostCoffee(coffeeObject);
 
-                    }, 1 * 3000);
-                })}>
-                    <div>
-                        <label htmlFor="ncafe" className="form-label">Nombre del Café</label>
-                        <input
-                            {...register("name", { required: "* Este campo es requerido. Ingresa un valor." })}
-                            type="text"
-                            className="form-control"
-                            id="ncafe"
-                            placeholder="introduce nombre del café..."
-                        />
-                        <p>{(!nameInput) ? "* Este campo es requerido. Ingresa un valor." : errors.name?.message}</p>
-                    </div>
-                    <div>
-                        <label htmlFor="dcafe" className="form-label">Descripción del Café</label>
-                        <textarea {...register("description", { required: "* Este campo es requerido. Ingresa un valor." })} className="form-control" id="dcafe" rows="3"></textarea>
-                        <p>{(!descriptionInput) ? "* Este campo es requerido. Ingresa un valor." : errors.description?.message}</p>
-                    </div>
-                    <div>
-                        <label htmlFor="icafe" className="form-label">Imagen del Café</label>
-                        <input {...register("file", { required: "* Este campo es requerido. Ingresa un valor." })} type="file" className="form-control" id="icafe" onChange={handleChange} />
-                        <p>{(!fileInput) ? "* Este campo es requerido. Ingresa un valor." : errors.file?.message}</p>
-                    </div>
-                    <div>
-                        <label htmlFor="pcafe" className="form-label">Precio del Café</label>
-                        <input
-                            {...register("price",
-                                {
-                                    required: "* Este campo es requerido. Ingresa un valor.",
-                                    min: { value: 1, message: "El valor minimo permitido es 1" }
-                                }
-                            )}
-                            type="number"
-                            className="form-control"
-                            id="pcafe" />
-                        <p>{(!priceInput) ? "* Este campo es requerido. Ingresa un valor." : (priceInput < 1) ? "El valor minimo permitido es 1" : errors.price?.message}</p>
-                    </div>
-                    <div>
-                        <label htmlFor="scafe" className="form-label">Stock del Café</label>
-                        <input
-                            {...register("stock",
-                                {
-                                    required: "* Este campo es requerido. Ingresa un valor.",
-                                    min: { value: 1, message: "El valor minimo permitido es 1" }
-                                })
-                            }
-                            type="number"
-                            className="form-control"
-                            id="scafe" />
-                        <p>{(!stockInput) ? "* Este campo es requerido. Ingresa un valor." : (stockInput < 1) ? "El valor minimo permitido es 1" : errors.stock?.message}</p>
-                    </div>
-                    <div>
-                        <label htmlFor="tcafe" className="form-label">Tipo de Café</label>
-                        <select
-                            {...register("typeOfCoffee", { required: "* Este campo es requerido. Ingresa un valor." })}
-                            className="form-control"
-                            id="tcafe">
-                            <option value="">elige tipo de cafe..</option>
-                            {typeSelects}
-                        </select>
-                        <p>{(!typeInput) ? "* Este campo es requerido. Ingresa un valor." : errors.typeOfCoffee?.message}</p>
-                    </div>
-                    <div>
-                        <label htmlFor="rcafe" className="form-label">Tostado de Café</label>
-                        <select
-                            {...register("roastingProfile", { required: "* Este campo es requerido. Ingresa un valor." })}
-                            className="form-control"
-                            id="rcafe">
-                            <option value="">elige tipo de tostado..</option>
-                            {roastSelects}
-                        </select>
-                        <p>{(!roastInput) ? "* Este campo es requerido. Ingresa un valor." : errors.roastingProfile?.message}</p>
-                    </div>
-                    <div>
-                        <label htmlFor="ocafe" className="form-label">Origen de Café</label>
-                        <select
-                            {...register("origin", { required: "* Este campo es requerido. Ingresa un valor." })}
-                            className="form-control"
-                            id="ocafe">
-                            <option value="">elige origen del cafe..</option>
-                            {originSelects}
-                        </select>
-                        <p>{(!originInput) ? "* Este campo es requerido. Ingresa un valor." : errors.origin?.message}</p>
-                    </div>
-                    <div>
-                        <input type="submit" value="Registrar" className="form-submit-button" />
-                    </div>
-                </form>
+                            }, 1 * 3000);
+                        })}>
+                            <div>
+                                <label htmlFor="ncafe" className="form-label">Nombre del Café</label>
+                                <input
+                                    {...register("name", { required: "* Este campo es requerido. Ingresa un valor." })}
+                                    type="text"
+                                    className="form-control"
+                                    id="ncafe"
+                                    placeholder="introduce nombre del café..."
+                                />
+                                <p>{(!nameInput) ? "* Este campo es requerido. Ingresa un valor." : errors.name?.message}</p>
+                            </div>
+                            <div>
+                                <label htmlFor="dcafe" className="form-label">Descripción del Café</label>
+                                <textarea {...register("description", { required: "* Este campo es requerido. Ingresa un valor." })} className="form-control" id="dcafe" rows="3"></textarea>
+                                <p>{(!descriptionInput) ? "* Este campo es requerido. Ingresa un valor." : errors.description?.message}</p>
+                            </div>
+                            <div>
+                                <label htmlFor="icafe" className="form-label">Imagen del Café</label>
+                                <input {...register("file", { required: "* Este campo es requerido. Ingresa un valor." })} type="file" className="form-control" id="icafe" onChange={handleChange} />
+                                <p>{(!fileInput) ? "* Este campo es requerido. Ingresa un valor." : errors.file?.message}</p>
+                            </div>
+                            <div>
+                                <label htmlFor="pcafe" className="form-label">Precio del Café</label>
+                                <input
+                                    {...register("price",
+                                        {
+                                            required: "* Este campo es requerido. Ingresa un valor.",
+                                            min: { value: 1, message: "El valor minimo permitido es 1" }
+                                        }
+                                    )}
+                                    type="number"
+                                    className="form-control"
+                                    id="pcafe" />
+                                <p>{(!priceInput) ? "* Este campo es requerido. Ingresa un valor." : (priceInput < 1) ? "El valor minimo permitido es 1" : errors.price?.message}</p>
+                            </div>
+                            <div>
+                                <label htmlFor="scafe" className="form-label">Stock del Café</label>
+                                <input
+                                    {...register("stock",
+                                        {
+                                            required: "* Este campo es requerido. Ingresa un valor.",
+                                            min: { value: 1, message: "El valor minimo permitido es 1" }
+                                        })
+                                    }
+                                    type="number"
+                                    className="form-control"
+                                    id="scafe" />
+                                <p>{(!stockInput) ? "* Este campo es requerido. Ingresa un valor." : (stockInput < 1) ? "El valor minimo permitido es 1" : errors.stock?.message}</p>
+                            </div>
+                            <div>
+                                <label htmlFor="tcafe" className="form-label">Tipo de Café</label>
+                                <select
+                                    {...register("typeOfCoffee", { required: "* Este campo es requerido. Ingresa un valor." })}
+                                    className="form-control"
+                                    id="tcafe">
+                                    <option value="">elige tipo de cafe..</option>
+                                    {typeSelects}
+                                </select>
+                                <p>{(!typeInput) ? "* Este campo es requerido. Ingresa un valor." : errors.typeOfCoffee?.message}</p>
+                            </div>
+                            <div>
+                                <label htmlFor="rcafe" className="form-label">Tostado de Café</label>
+                                <select
+                                    {...register("roastingProfile", { required: "* Este campo es requerido. Ingresa un valor." })}
+                                    className="form-control"
+                                    id="rcafe">
+                                    <option value="">elige tipo de tostado..</option>
+                                    {roastSelects}
+                                </select>
+                                <p>{(!roastInput) ? "* Este campo es requerido. Ingresa un valor." : errors.roastingProfile?.message}</p>
+                            </div>
+                            <div>
+                                <label htmlFor="ocafe" className="form-label">Origen de Café</label>
+                                <select
+                                    {...register("origin", { required: "* Este campo es requerido. Ingresa un valor." })}
+                                    className="form-control"
+                                    id="ocafe">
+                                    <option value="">elige origen del cafe..</option>
+                                    {originSelects}
+                                </select>
+                                <p>{(!originInput) ? "* Este campo es requerido. Ingresa un valor." : errors.origin?.message}</p>
+                            </div>
+                            <div>
+                                <input type="submit" value="Registrar" className="form-submit-button" />
+                            </div>
+                        </form>
+                    </CardBody>
+                </Card>
+
             </div>
         </div>
     )

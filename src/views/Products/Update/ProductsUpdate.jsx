@@ -7,9 +7,10 @@ import { Button, image } from "@nextui-org/react";
 import { FaPen, FaEye, FaTrash } from "react-icons/fa";
 import NavigationBar from '../../../components/NavBar/NavigationBar';
 import { useParams } from 'react-router-dom';
+import { Card, CardBody } from "@nextui-org/react";
+import BreadCum from "../../../components/BreadCum/BreadCum";
 import 'react-toastify/dist/ReactToastify.css';
 import './ProductsUpdate.css'
-import BreadCum from "../../../components/BreadCum/BreadCum";
 
 const ProductsUpdate = () => {
     const { id } = useParams();
@@ -34,6 +35,11 @@ const ProductsUpdate = () => {
     const ROAST_GET_VALUE = "RoastingProfile";
     const ORIGIN_GET_VALUE = "Origin";
     let url = '';
+
+    const breadcumItems = [
+        'Productos',
+        'Editar'
+    ];
 
     useEffect(() => {
         getCoffeeDetail();
@@ -189,11 +195,8 @@ const ProductsUpdate = () => {
     return (
         <div className="form-create-container">
             <NavigationBar />
-            <BreadCum />
+            <BreadCum items={breadcumItems} />
             <div>
-                <div>
-                    <h1 className="form-header-text">Formulario de actualización de productos</h1>
-                </div>
                 <ToastContainer
                     position="top-right"
                     autoClose={5000}
@@ -206,239 +209,244 @@ const ProductsUpdate = () => {
                     pauseOnHover
                     theme="light"
                 />
-                <form className="form-create" onSubmit={handleSubmit((data) => {
-                    if (!submitable.length) {
-                        notifyInfo("Edita al menos un campo para enviar el formulario.");
-                    } else {
-                        handleUploadFile();
-                        setTimeout(() => {
-                            const coffeeObject = setPutCoffeeObject(data);
-                            setPutObject(coffeeObject);
-                            handlePutCoffee(coffeeObject);
-                        }, 1 * 3000);
-                    }
-                })}>
-                    <div>
-                        <div>
-                            <label htmlFor="icafe" className="form-label">Imagen del Café</label>
-                            <input
-                                {...register("file")}
-                                type="file"
-                                className="form-control"
-                                id="icafe"
-                                onChange={handleChange}
-                                disabled
-                            />
-                            <Button
-                                size="sm"
-                                onClick={() => {
-                                    const inputImage = document.getElementById('icafe');
-                                    if (inputImage.disabled) {
-                                        inputImage.disabled = false
-                                        submitable.push(true);
-                                    } else {
-                                        inputImage.disabled = true;
-                                        submitable.pop();
-                                    }
-
-                                }}
-                            ><FaPen /></Button>
-                        </div>
-                        {/**<p>{errors.file?.message}</p> */}
-                    </div>
-                    <div>
-                        <label htmlFor="ncafe" className="form-label">Nombre del Café</label>
-                        <input
-                            {...register("name", {
-                                required: "* Este campo es requerido. Ingresa un valor."
-                            })}
-                            type="text"
-                            className="form-control"
-                            id="ncafe"
-                            placeholder="introduce nombre del café..."
-                            disabled
-                        />
-                        <Button
-                            size="sm"
-                            onClick={() => {
-                                const inputName = document.getElementById('ncafe');
-                                if (inputName.disabled) {
-                                    inputName.disabled = false
-                                    submitable.push(true);
-                                } else {
-                                    inputName.disabled = true;
-                                    submitable.pop();
-                                }
-
-                            }}
-                        ><FaPen /></Button>
-                        <p>{errors.name?.message}</p>
-                    </div>
-                    <div>
-                        <label htmlFor="dcafe" className="form-label">Descripción del Café</label>
-                        <textarea
-                            {...register("description", { required: "* Este campo es requerido. Ingresa un valor." })}
-                            className="form-control"
-                            id="dcafe"
-                            rows="3"
-                            defaultValue={coffee?.description}
-                            disabled></textarea>
-                        <Button
-                            size="sm"
-                            onClick={() => {
-                                const inputName = document.getElementById('dcafe');
-                                if (inputName.disabled) {
-                                    inputName.disabled = false
-                                    submitable.push(true);
-                                } else {
-                                    inputName.disabled = true;
-                                    submitable.pop();
-                                }
-
-                            }}
-                        ><FaPen /></Button>
-                        <p>{errors.description?.message}</p>
-                    </div>
-
-                    <div>
-                        <label htmlFor="pcafe" className="form-label">Precio del Café</label>
-                        <input
-                            {...register("price",
-                                {
-                                    required: "* Este campo es requerido. Ingresa un valor.",
-                                    min: { value: 1, message: "El valor minimo permitido es 1" }
-                                }
-                            )}
-                            type="number"
-                            className="form-control"
-                            defaultValue={coffee?.price}
-                            id="pcafe"
-                            disabled />
-                        <Button
-                            size="sm"
-                            onClick={() => {
-                                const inputName = document.getElementById('pcafe');
-                                if (inputName.disabled) {
-                                    inputName.disabled = false;
-                                    submitable.push(true);
-                                } else {
-                                    inputName.disabled = true;
-                                    submitable.pop(false);
-                                }
-
-                            }}
-                        ><FaPen /></Button>
-                        <p>{errors.price?.message}</p>
-                    </div>
-                    <div>
-                        <label htmlFor="scafe" className="form-label">Stock del Café</label>
-                        <input
-                            {...register("stock",
-                                {
-                                    required: "* Este campo es requerido. Ingresa un valor.",
-                                    min: { value: 1, message: "El valor minimo permitido es 1" }
-                                })
+                <Card className="form-update-card">
+                    <CardBody>
+                        <form className="form-create" onSubmit={handleSubmit((data) => {
+                            if (!submitable.length) {
+                                notifyInfo("Edita al menos un campo para enviar el formulario.");
+                            } else {
+                                handleUploadFile();
+                                setTimeout(() => {
+                                    const coffeeObject = setPutCoffeeObject(data);
+                                    setPutObject(coffeeObject);
+                                    handlePutCoffee(coffeeObject);
+                                }, 1 * 3000);
                             }
-                            type="number"
-                            className="form-control"
-                            defaultValue={coffee?.stock}
-                            id="scafe"
-                            disabled />
-                        <Button
-                            size="sm"
-                            onClick={() => {
-                                const inputName = document.getElementById('scafe');
-                                if (inputName.disabled) {
-                                    inputName.disabled = false;
-                                    submitable.push(true);
-                                } else {
-                                    inputName.disabled = true;
-                                    submitable.pop();
-                                }
+                        })}>
+                            <div>
+                                <div>
+                                    <label htmlFor="icafe" className="form-label">Imagen del Café</label>
+                                    <input
+                                        {...register("file")}
+                                        type="file"
+                                        className="form-control"
+                                        id="icafe"
+                                        onChange={handleChange}
+                                        disabled
+                                    />
+                                    <Button
+                                        size="sm"
+                                        onClick={() => {
+                                            const inputImage = document.getElementById('icafe');
+                                            if (inputImage.disabled) {
+                                                inputImage.disabled = false
+                                                submitable.push(true);
+                                            } else {
+                                                inputImage.disabled = true;
+                                                submitable.pop();
+                                            }
 
-                            }}
-                        ><FaPen /></Button>
-                        <p>{errors.stock?.message}</p>
-                    </div>
-                    <div>
-                        <label htmlFor="tcafe" className="form-label">Tipo de Café</label>
-                        <select
-                            {...register("typeOfCoffee", { required: "* Este campo es requerido. Ingresa un valor." })}
-                            className="form-control"
-                            id="tcafe"
-                            disabled>
-                            {typeSelects}
-                        </select>
-                        <Button
-                            size="sm"
-                            onClick={() => {
-                                const inputName = document.getElementById('tcafe');
-                                if (inputName.disabled) {
-                                    inputName.disabled = false;
-                                    submitable.push(true);
-                                } else {
-                                    inputName.disabled = true;
-                                    submitable.pop();
-                                }
+                                        }}
+                                    ><FaPen /></Button>
+                                </div>
+                                {/**<p>{errors.file?.message}</p> */}
+                            </div>
+                            <div>
+                                <label htmlFor="ncafe" className="form-label">Nombre del Café</label>
+                                <input
+                                    {...register("name", {
+                                        required: "* Este campo es requerido. Ingresa un valor."
+                                    })}
+                                    type="text"
+                                    className="form-control"
+                                    id="ncafe"
+                                    placeholder="introduce nombre del café..."
+                                    disabled
+                                />
+                                <Button
+                                    size="sm"
+                                    onClick={() => {
+                                        const inputName = document.getElementById('ncafe');
+                                        if (inputName.disabled) {
+                                            inputName.disabled = false
+                                            submitable.push(true);
+                                        } else {
+                                            inputName.disabled = true;
+                                            submitable.pop();
+                                        }
 
-                            }}
-                        ><FaPen /></Button>
-                        <p>{errors.typeOfCoffee?.message}</p>
-                    </div>
-                    <div>
-                        <label htmlFor="rcafe" className="form-label">Tostado de Café</label>
-                        <select
-                            {...register("roastingProfile", { required: "* Este campo es requerido. Ingresa un valor." })}
-                            className="form-control"
-                            id="rcafe"
-                            disabled>
-                            {roastSelects}
-                        </select>
-                        <Button
-                            size="sm"
-                            onClick={() => {
-                                const inputName = document.getElementById('rcafe');
-                                if (inputName.disabled) {
-                                    inputName.disabled = false;
-                                    submitable.push(true);
-                                } else {
-                                    inputName.disabled = true;
-                                    submitable.pop();
-                                }
+                                    }}
+                                ><FaPen /></Button>
+                                <p>{errors.name?.message}</p>
+                            </div>
+                            <div>
+                                <label htmlFor="dcafe" className="form-label">Descripción del Café</label>
+                                <textarea
+                                    {...register("description", { required: "* Este campo es requerido. Ingresa un valor." })}
+                                    className="form-control"
+                                    id="dcafe"
+                                    rows="3"
+                                    defaultValue={coffee?.description}
+                                    disabled></textarea>
+                                <Button
+                                    size="sm"
+                                    onClick={() => {
+                                        const inputName = document.getElementById('dcafe');
+                                        if (inputName.disabled) {
+                                            inputName.disabled = false
+                                            submitable.push(true);
+                                        } else {
+                                            inputName.disabled = true;
+                                            submitable.pop();
+                                        }
 
-                            }}
-                        ><FaPen /></Button>
-                        <p>{errors.roastingProfile?.message}</p>
-                    </div>
-                    <div>
-                        <label htmlFor="ocafe" className="form-label">Origen de Café</label>
-                        <select
-                            {...register("origin", { required: "* Este campo es requerido. Ingresa un valor." })}
-                            className="form-control"
-                            id="ocafe"
-                            disabled>
-                            {originSelects}
-                        </select>
-                        <Button
-                            size="sm"
-                            onClick={() => {
-                                const inputName = document.getElementById('ocafe');
-                                if (inputName.disabled) {
-                                    inputName.disabled = false;
-                                    submitable.push(true);
-                                } else {
-                                    inputName.disabled = true;
-                                    submitable.pop();
-                                }
+                                    }}
+                                ><FaPen /></Button>
+                                <p>{errors.description?.message}</p>
+                            </div>
 
-                            }}
-                        ><FaPen /></Button>
-                        <p>{errors.origin?.message}</p>
-                    </div>
-                    <div>
-                        <input type="submit" value="Actualizar" className="form-submit-button" />
-                    </div>
-                </form>
+                            <div>
+                                <label htmlFor="pcafe" className="form-label">Precio del Café</label>
+                                <input
+                                    {...register("price",
+                                        {
+                                            required: "* Este campo es requerido. Ingresa un valor.",
+                                            min: { value: 1, message: "El valor minimo permitido es 1" }
+                                        }
+                                    )}
+                                    type="number"
+                                    className="form-control"
+                                    defaultValue={coffee?.price}
+                                    id="pcafe"
+                                    disabled />
+                                <Button
+                                    size="sm"
+                                    onClick={() => {
+                                        const inputName = document.getElementById('pcafe');
+                                        if (inputName.disabled) {
+                                            inputName.disabled = false;
+                                            submitable.push(true);
+                                        } else {
+                                            inputName.disabled = true;
+                                            submitable.pop(false);
+                                        }
+
+                                    }}
+                                ><FaPen /></Button>
+                                <p>{errors.price?.message}</p>
+                            </div>
+                            <div>
+                                <label htmlFor="scafe" className="form-label">Stock del Café</label>
+                                <input
+                                    {...register("stock",
+                                        {
+                                            required: "* Este campo es requerido. Ingresa un valor.",
+                                            min: { value: 1, message: "El valor minimo permitido es 1" }
+                                        })
+                                    }
+                                    type="number"
+                                    className="form-control"
+                                    defaultValue={coffee?.stock}
+                                    id="scafe"
+                                    disabled />
+                                <Button
+                                    size="sm"
+                                    onClick={() => {
+                                        const inputName = document.getElementById('scafe');
+                                        if (inputName.disabled) {
+                                            inputName.disabled = false;
+                                            submitable.push(true);
+                                        } else {
+                                            inputName.disabled = true;
+                                            submitable.pop();
+                                        }
+
+                                    }}
+                                ><FaPen /></Button>
+                                <p>{errors.stock?.message}</p>
+                            </div>
+                            <div>
+                                <label htmlFor="tcafe" className="form-label">Tipo de Café</label>
+                                <select
+                                    {...register("typeOfCoffee", { required: "* Este campo es requerido. Ingresa un valor." })}
+                                    className="form-control"
+                                    id="tcafe"
+                                    disabled>
+                                    {typeSelects}
+                                </select>
+                                <Button
+                                    size="sm"
+                                    onClick={() => {
+                                        const inputName = document.getElementById('tcafe');
+                                        if (inputName.disabled) {
+                                            inputName.disabled = false;
+                                            submitable.push(true);
+                                        } else {
+                                            inputName.disabled = true;
+                                            submitable.pop();
+                                        }
+
+                                    }}
+                                ><FaPen /></Button>
+                                <p>{errors.typeOfCoffee?.message}</p>
+                            </div>
+                            <div>
+                                <label htmlFor="rcafe" className="form-label">Tostado de Café</label>
+                                <select
+                                    {...register("roastingProfile", { required: "* Este campo es requerido. Ingresa un valor." })}
+                                    className="form-control"
+                                    id="rcafe"
+                                    disabled>
+                                    {roastSelects}
+                                </select>
+                                <Button
+                                    size="sm"
+                                    onClick={() => {
+                                        const inputName = document.getElementById('rcafe');
+                                        if (inputName.disabled) {
+                                            inputName.disabled = false;
+                                            submitable.push(true);
+                                        } else {
+                                            inputName.disabled = true;
+                                            submitable.pop();
+                                        }
+
+                                    }}
+                                ><FaPen /></Button>
+                                <p>{errors.roastingProfile?.message}</p>
+                            </div>
+                            <div>
+                                <label htmlFor="ocafe" className="form-label">Origen de Café</label>
+                                <select
+                                    {...register("origin", { required: "* Este campo es requerido. Ingresa un valor." })}
+                                    className="form-control"
+                                    id="ocafe"
+                                    disabled>
+                                    {originSelects}
+                                </select>
+                                <Button
+                                    size="sm"
+                                    onClick={() => {
+                                        const inputName = document.getElementById('ocafe');
+                                        if (inputName.disabled) {
+                                            inputName.disabled = false;
+                                            submitable.push(true);
+                                        } else {
+                                            inputName.disabled = true;
+                                            submitable.pop();
+                                        }
+
+                                    }}
+                                ><FaPen /></Button>
+                                <p>{errors.origin?.message}</p>
+                            </div>
+                            <div>
+                                <input type="submit" value="Actualizar" className="form-submit-button" />
+                            </div>
+                        </form>
+                    </CardBody>
+                </Card>
+
             </div>
         </div>
     )

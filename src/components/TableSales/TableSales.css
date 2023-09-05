@@ -1,0 +1,19 @@
+.actions-cont {
+    display: flex;
+}
+
+.action-buttons {
+    background-color: #e8bc71 !important;
+}
+
+.table-sales-cont {
+    padding: 1rem;
+}
+
+.status-span {
+    color: white;
+    background-color: green;
+    padding: 4px;
+    border-radius: 4px;
+    font-weight: bolder;
+}

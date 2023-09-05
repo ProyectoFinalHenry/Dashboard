@@ -25,6 +25,11 @@ const NavigationBar = () => {
                     </NavbarBrand>
                     <NavbarContent className="hidden sm:flex gap-3">
                         <NavbarItem>
+                            <Link color="foreground" href="/panel">
+                                Panel
+                            </Link>
+                        </NavbarItem>
+                        <NavbarItem>
                             <Link color="foreground" href="/users">
                                 Usuarios
                             </Link>

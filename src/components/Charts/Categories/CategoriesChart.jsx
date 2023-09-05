@@ -14,7 +14,6 @@ const CategoriesChart = ({ categoriesData, categoriesLabels }) => {
                 breakpoint: 480,
                 options: {
                     chart: {
-                        width: 200
                     },
                     legend: {
                         position: 'bottom'
@@ -35,8 +34,8 @@ const CategoriesChart = ({ categoriesData, categoriesLabels }) => {
                         options={state.chartOptions}
                         series={state.series}
                         type="donut"
-                        width={600}
-                        height={335}
+                        width={500}
+                        height={350}
                     />
                 </CardBody>
             </Card>

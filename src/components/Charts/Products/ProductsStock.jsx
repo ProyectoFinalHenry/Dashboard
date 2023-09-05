@@ -12,7 +12,6 @@ const ProductsStock = ({ coffeesData }) => {
         options: {
             chart: {
                 type: 'bar',
-                height: 350
             },
             plotOptions: {
                 bar: {
@@ -41,7 +40,7 @@ const ProductsStock = ({ coffeesData }) => {
                         options={state.options}
                         series={state.series}
                         type="bar"
-                        width={600}
+                        width={500}
                         height={320}
                     />
                 </CardBody>

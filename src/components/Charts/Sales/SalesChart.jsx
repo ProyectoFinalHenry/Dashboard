@@ -49,7 +49,7 @@ const SalesChart = ({ salesData, salesCategories }) => {
                         options={state.options}
                         series={state.series}
                         type="line"
-                        width={700}
+                        width={500}
                         height={320}
                     />
                 </CardBody>

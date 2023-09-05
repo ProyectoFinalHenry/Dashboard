@@ -1,15 +1,14 @@
 import NavigationBar from "../../components/NavBar/NavigationBar";
 import TableUserBan from "../../components/TableUserBan/TableUserBan";
 import { useState, useEffect } from "react";
-import BreadCum from "../../components/BreadCum/BreadCum";
 import axios from "axios";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
-  const breadcumItems = ['Usuarios'];
+
   async function getUsers() {
     try {
-      const { data } = await axios.get("http://localhost:3001/management/user");
+      const { data } = await axios.get("http://localhost:3001/management/user/");
       setUsers(data);
     } catch (error) {
       console.error("Error al obtener la lista de usuarios", error);
@@ -43,7 +42,7 @@ const Users = () => {
 
   const handleActivateDeactivate = async (userId, action, getUsers) => {
     try {
-      const actionUrl = `http://localhost:3001/management/user/status/${userId}`;
+      const actionUrl = `http://localhost:3001/management/user/status/${userId}/`;
 
       await axios.put(actionUrl, {
         action: action,
@@ -58,15 +57,15 @@ const Users = () => {
   return (
     <div>
       <NavigationBar />
-      <BreadCum items={breadcumItems} />
+      <h1>Lista de usuarios</h1>
       <TableUserBan
-        columns={columns}
-        data={users}
-        getUsers={getUsers}
-        handleActivateDeactivate={(userId, action) =>
-          handleActivateDeactivate(userId, action, getUsers)
-        }
-      />
+  columns={columns}
+  data={users}
+  getUsers={getUsers} 
+  handleActivateDeactivate={(userId, action) =>
+    handleActivateDeactivate(userId, action, getUsers)
+  }
+/>
     </div>
   );
 };

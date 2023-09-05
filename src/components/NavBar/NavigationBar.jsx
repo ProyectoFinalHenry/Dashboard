@@ -29,8 +29,8 @@ const NavigationBar = () => {
                                 Usuarios
                             </Link>
                         </NavbarItem>
-                        <NavbarItem isActive>
-                            <Link href="#" aria-current="page" color="secondary">
+                        <NavbarItem >
+                            <Link href="/sales" color="foreground">
                                 Ventas
                             </Link>
                         </NavbarItem>

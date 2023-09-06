@@ -106,7 +106,8 @@ const ProductsCreate = () => {
 
     const handlePostCoffee = async (postData) => {
         try {
-            const { data } = await axios.post('coffee', postData);
+            const auth_token = localStorage.getItem("auth_token")
+            const { data } = await axios.post('coffee', postData, {headers: {auth_token}});
             const { status } = data;
             if (status) {
                 notifySuccess("¡Producto creado con exito!");

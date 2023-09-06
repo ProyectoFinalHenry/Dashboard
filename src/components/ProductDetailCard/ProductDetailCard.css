@@ -2,7 +2,24 @@
     display: flex !important;
     color: #e7bc71;
 }
-.detail-products-card{
+
+.detail-products-card {
     margin: 1rem;
     padding: 1rem;
+}
+
+.product-status-active {
+    color: white;
+    background-color: green;
+    padding: 4px;
+    border-radius: 4px;
+    font-weight: bolder;
+}
+
+.product-status-inactive {
+    color: white;
+    background-color: red;
+    padding: 4px;
+    border-radius: 4px;
+    font-weight: bolder;
 }

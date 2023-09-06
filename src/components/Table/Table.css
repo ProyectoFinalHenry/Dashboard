@@ -6,6 +6,22 @@
     background-color: #e8bc71 !important;
 }
 
-.table-products-cont{
+.table-products-cont {
     padding: 1rem;
+}
+
+.product-status-active {
+    color: white;
+    background-color: green;
+    padding: 4px;
+    border-radius: 4px;
+    font-weight: bolder;
+}
+
+.product-status-inactive {
+    color: white;
+    background-color: red;
+    padding: 4px;
+    border-radius: 4px;
+    font-weight: bolder;
 }

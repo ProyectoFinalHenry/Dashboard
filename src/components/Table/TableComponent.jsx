@@ -46,11 +46,19 @@ const TableComponent = ({ data, columns, actions }) => {
         navigate(`update/${id}`);
     }
 
-    const handleDeleteProduct = async (id) => {
+    const handleDeleteProduct = async (id, status) => {
         try {
-            const { status } = await axios.delete(`coffee/${id}`);
-            if (status) {
-                notifySuccess('Producto eliminado con exito.');
+            const auth_token = localStorage.getItem("auth_token")
+            const { data } = await axios.put(`coffee/${id}`, {
+                data: {
+                    defaultCoffee: {
+                        isActive: (status === true) ? false : true
+                    }
+                }
+            }, { headers: { auth_token } });
+            if (data.status === true) {
+                const message = (status === true) ? 'Producto desactivado exitosamente' : 'Producto activado exitosamente';
+                notifySuccess(message);
                 setTimeout(() => {
                     window.location.href = '/products';
                 }, 1 * 3000);
@@ -60,23 +68,24 @@ const TableComponent = ({ data, columns, actions }) => {
         }
     }
 
-    const getRedirectFunction = (action, id) => {
+    const getRedirectFunction = (action, id, status) => {
         switch (action) {
             case "edit":
                 return () => handleRedirectEdit(id);
             case "detail":
                 return () => handleRedirectDetail(id);
             case "delete":
-                return () => handleDeleteProduct(id);
+                return () => handleDeleteProduct(id, status);
         }
     }
-    const getActionButtons = (id) => {
+    const getActionButtons = (id, status) => {
         return actions.map((action, i) => {
             return <Button
+                isDisabled={(status === false && action === "edit") ? true : false}
                 size="sm"
                 className="action-buttons"
                 key={i}
-                onClick={getRedirectFunction(action, id)}>{getIcon(action)}</Button>
+                onClick={getRedirectFunction(action, id, status)}>{getIcon(action)}</Button>
         });
     }
     const pagination = <div className="flex w-full justify-center">
@@ -116,7 +125,19 @@ const TableComponent = ({ data, columns, actions }) => {
                 <TableBody items={items}>
                     {(item) => (
                         < TableRow key={item.id}>
-                            {(columnKey) => <TableCell className={(columnKey === "actions") ? "actions-cont" : ''}>{(columnKey === "actions") ? getActionButtons(item.id) : getKeyValue(item, columnKey)}</TableCell>}
+                            {(columnKey) =>
+                                <TableCell
+                                    className={(columnKey === "actions") ? "actions-cont" : ''}
+                                >
+                                    {
+                                        (columnKey === "actions") ? getActionButtons(item.id, item.isActive)
+                                            : (columnKey === "isActive")
+                                                ? (item.isActive === true)
+                                                    ? <span className="product-status-active">{getKeyValue("activo", columnKey)}</span>
+                                                    : <span className="product-status-inactive">{getKeyValue("inactivo", columnKey)}</span>
+                                                : getKeyValue(item, columnKey)
+                                    }
+                                </TableCell>}
                         </TableRow>
                     )}
                 </TableBody>

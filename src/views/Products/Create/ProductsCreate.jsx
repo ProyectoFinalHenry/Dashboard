@@ -82,8 +82,7 @@ const ProductsCreate = () => {
                 const base64data = 'data:image/png;base64,' + reader.result.split(',')[1];
 
                 try {
-                    const auth_token = localStorage.getItem("auth_token")
-                    const { data } = await axios.post('coffee/upload', { file: base64data, fname: name }, {headers:{auth_token}});
+                    const { data } = await axios.post('coffee/upload', { file: base64data, fname: name });
                     const { message, imageUrl } = data;
                     console.log(message);
                     setUrlImage(imageUrl);
@@ -107,7 +106,8 @@ const ProductsCreate = () => {
 
     const handlePostCoffee = async (postData) => {
         try {
-            const { data } = await axios.post('coffee', postData);
+            const auth_token = localStorage.getItem("auth_token")
+            const { data } = await axios.post('coffee', postData, {headers: {auth_token}});
             const { status } = data;
             if (status) {
                 notifySuccess("¡Producto creado con exito!");

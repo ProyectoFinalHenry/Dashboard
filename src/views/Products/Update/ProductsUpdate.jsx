@@ -110,8 +110,7 @@ const ProductsUpdate = () => {
                 const base64data = 'data:image/png;base64,' + reader.result.split(',')[1];
 
                 try {
-                    const auth_token = localStorage.getItem("auth_token")
-                    const { data } = await axios.post('coffee/upload', { file: base64data, fname: name }, {headers: {auth_token}});
+                    const { data } = await axios.post('coffee/upload', { file: base64data, fname: name });
                     const { message, imageUrl } = data;
                     console.log(message);
                     setUrlImage(imageUrl);
@@ -164,9 +163,10 @@ const ProductsUpdate = () => {
     const handlePutCoffee = async (putData) => {
         const updateData = setPutData(putData);
         try {
+            const auth_token = localStorage.getItem("auth_token")
             const { data } = await axios.put(`coffee/${coffee?.id}`, {
                 data: updateData
-            });
+            }, {headers:{auth_token}} );
             const { status } = data;
             if (status) {
                 notifySuccess("¡Producto actualizado con exito!");

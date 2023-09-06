@@ -163,9 +163,10 @@ const ProductsUpdate = () => {
     const handlePutCoffee = async (putData) => {
         const updateData = setPutData(putData);
         try {
+            const auth_token = localStorage.getItem("auth_token")
             const { data } = await axios.put(`coffee/${coffee?.id}`, {
                 data: updateData
-            });
+            }, {headers:{auth_token}} );
             const { status } = data;
             if (status) {
                 notifySuccess("¡Producto actualizado con exito!");

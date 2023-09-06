@@ -5,10 +5,11 @@ import axios from "axios";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
-
+  const auth_token = localStorage.getItem("auth_token");
+  
   async function getUsers() {
     try {
-      const { data } = await axios.get("/management/user");
+      const { data } = await axios.get("/management/user", {headers:{auth_token}});
       setUsers(data);
     } catch (error) {
       console.error("Error al obtener la lista de usuarios", error);
@@ -46,7 +47,7 @@ const Users = () => {
 
       await axios.put(actionUrl, {
         action: action,
-      });
+      }, {headers:{auth_token}});
 
       getUsers();
     } catch (error) {

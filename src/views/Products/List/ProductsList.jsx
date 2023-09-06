@@ -48,6 +48,10 @@ const ProductsList = () => {
             label: "STOCK",
         },
         {
+            key: "isActive",
+            label: "ESTATUS"
+        },
+        {
             key: "actions",
             label: "ACCIONES",
         },

@@ -8,6 +8,7 @@ export default function ProductDetailCard({ detailData }) {
         name,
         image,
         stock,
+        isActive,
         description,
         price,
         Origin,
@@ -15,7 +16,6 @@ export default function ProductDetailCard({ detailData }) {
         RoastingProfile,
 
     } = detailData;
-
     return (
         <Card className="detail-products-card">
             <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
@@ -49,6 +49,16 @@ export default function ProductDetailCard({ detailData }) {
                 <div>
                     <label className="font-bold uppercase text-large">perfil de tostado</label>
                     <p>{RoastingProfile?.profile}</p>
+                </div>
+                <div>
+                    <label className="font-bold uppercase text-large">Estatus</label>
+                    <p>{
+                        (isActive === true)
+                            ? <span className="product-status-active">Activo</span>
+                            : <span className="product-status-inactive">Inactivo</span>
+                    }
+                    </p>
+                    <br />
                 </div>
                 <Divider />
                 <Image

@@ -110,7 +110,8 @@ const ProductsUpdate = () => {
                 const base64data = 'data:image/png;base64,' + reader.result.split(',')[1];
 
                 try {
-                    const { data } = await axios.post('coffee/upload', { file: base64data, fname: name });
+                    const auth_token = localStorage.getItem("auth_token")
+                    const { data } = await axios.post('coffee/upload', { file: base64data, fname: name }, {headers: {auth_token}});
                     const { message, imageUrl } = data;
                     console.log(message);
                     setUrlImage(imageUrl);

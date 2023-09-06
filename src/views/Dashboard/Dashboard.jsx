@@ -24,7 +24,8 @@ const Dashboard = () => {
     }, []);
     const getChartsData = async () => {
         try {
-            const response = await axios.get("management/data");
+            const auth_token = localStorage.getItem("auth_token")
+            const response = await axios.get("management/data", {headers:{auth_token}});
             const { salesData } = response.data;
             const { typesData } = response.data;
             const { usersData } = response.data;

@@ -1,3 +1,18 @@
-  .inactive-cell {
-    color: red;
-  }
+.table-users-cont {
+  margin: 1rem;
+}
+
+.inactive-cell {
+  color: white;
+  background-color: red;
+  padding: 4px;
+  border-radius: 4px;
+  font-weight: bolder;
+}
+.active-cell {
+  color: white;
+  background-color: green;
+  padding: 4px;
+  border-radius: 4px;
+  font-weight: bolder;
+}

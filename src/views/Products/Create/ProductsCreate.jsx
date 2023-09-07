@@ -6,6 +6,7 @@ import { notifySuccess } from '../../../functions/toastify'
 import NavigationBar from '../../../components/NavBar/NavigationBar';
 import BreadCum from "../../../components/BreadCum/BreadCum";
 import { Card, CardBody } from "@nextui-org/react";
+import { Input, Textarea, Select, SelectSection, SelectItem } from "@nextui-org/react";
 import 'react-toastify/dist/ReactToastify.css';
 import './ProductsCreate.css'
 
@@ -107,7 +108,7 @@ const ProductsCreate = () => {
     const handlePostCoffee = async (postData) => {
         try {
             const auth_token = localStorage.getItem("auth_token")
-            const { data } = await axios.post('coffee', postData, {headers: {auth_token}});
+            const { data } = await axios.post('coffee', postData, { headers: { auth_token } });
             const { status } = data;
             if (status) {
                 notifySuccess("¡Producto creado con exito!");
@@ -123,15 +124,21 @@ const ProductsCreate = () => {
 
     const typeSelects = types.map((item, i) => {
         const { type } = item;
-        return <option value={type} key={i}>{type}</option>
+        return <SelectItem key={type} value={type}>
+            {type}
+        </SelectItem>
     });
     const roastSelects = roasts.map((item, i) => {
         const { profile } = item;
-        return <option value={profile} key={i}>{profile}</option>
+        return <SelectItem key={profile} value={profile}>
+            {profile}
+        </SelectItem>
     });
     const originSelects = origins.map((item, i) => {
         const { origin } = item;
-        return <option value={origin} key={i}>{origin}</option>
+        return <SelectItem key={origin} value={origin}>
+            {origin}
+        </SelectItem>
     });
 
     return (
@@ -163,85 +170,101 @@ const ProductsCreate = () => {
                             }, 1 * 3000);
                         })}>
                             <div>
-                                <label htmlFor="ncafe" className="form-label">Nombre del Café</label>
-                                <input
+                                <Input
                                     {...register("name", { required: "* Este campo es requerido. Ingresa un valor." })}
-                                    type="text"
-                                    className="form-control"
                                     id="ncafe"
-                                    placeholder="introduce nombre del café..."
+                                    type="text"
+                                    variant="bordered"
+                                    label="Nombre de café"
+                                    placeholder="Introduce un nombre.."
                                 />
                                 <p>{(!nameInput) ? "* Este campo es requerido. Ingresa un valor." : errors.name?.message}</p>
                             </div>
                             <div>
-                                <label htmlFor="dcafe" className="form-label">Descripción del Café</label>
-                                <textarea {...register("description", { required: "* Este campo es requerido. Ingresa un valor." })} className="form-control" id="dcafe" rows="3"></textarea>
+                                <Textarea
+                                    {...register("description", { required: "* Este campo es requerido. Ingresa un valor." })}
+                                    id="dcafe"
+                                    variant="bordered"
+                                    label="Description"
+                                    // labelPlacement="outside"
+                                    placeholder="Introduce una descripción.."
+                                    className="col-span-12 md:col-span-6 mb-6 md:mb-0"
+                                />
                                 <p>{(!descriptionInput) ? "* Este campo es requerido. Ingresa un valor." : errors.description?.message}</p>
                             </div>
                             <div>
-                                <label htmlFor="icafe" className="form-label">Imagen del Café</label>
-                                <input {...register("file", { required: "* Este campo es requerido. Ingresa un valor." })} type="file" className="form-control" id="icafe" onChange={handleChange} />
+                                <Input
+                                    {...register("file", { required: "* Este campo es requerido. Ingresa un valor." })}
+                                    id="icafe"
+                                    type="file"
+                                    variant="bordered"
+                                    label="Image"
+                                    placeholder="Selecciona una imagen.."
+                                    onChange={handleChange}
+                                />
                                 <p>{(!fileInput) ? "* Este campo es requerido. Ingresa un valor." : errors.file?.message}</p>
                             </div>
                             <div>
-                                <label htmlFor="pcafe" className="form-label">Precio del Café</label>
-                                <input
-                                    {...register("price",
-                                        {
-                                            required: "* Este campo es requerido. Ingresa un valor.",
-                                            min: { value: 1, message: "El valor minimo permitido es 1" }
-                                        }
-                                    )}
+                                <Input
+                                    {...register("price", { required: "* Este campo es requerido. Ingresa un valor." })}
+                                    id="pcafe"
                                     type="number"
-                                    className="form-control"
-                                    id="pcafe" />
+                                    variant="bordered"
+                                    label="Price"
+                                    placeholder="Establece precio.."
+                                />
                                 <p>{(!priceInput) ? "* Este campo es requerido. Ingresa un valor." : (priceInput < 1) ? "El valor minimo permitido es 1" : errors.price?.message}</p>
                             </div>
                             <div>
-                                <label htmlFor="scafe" className="form-label">Stock del Café</label>
-                                <input
+                                <Input
                                     {...register("stock",
                                         {
                                             required: "* Este campo es requerido. Ingresa un valor.",
                                             min: { value: 1, message: "El valor minimo permitido es 1" }
                                         })
                                     }
+                                    id="scafe"
                                     type="number"
-                                    className="form-control"
-                                    id="scafe" />
+                                    variant="bordered"
+                                    label="Stock"
+                                    placeholder="Establece stock.."
+                                />
                                 <p>{(!stockInput) ? "* Este campo es requerido. Ingresa un valor." : (stockInput < 1) ? "El valor minimo permitido es 1" : errors.stock?.message}</p>
                             </div>
                             <div>
-                                <label htmlFor="tcafe" className="form-label">Tipo de Café</label>
-                                <select
+                                <Select
                                     {...register("typeOfCoffee", { required: "* Este campo es requerido. Ingresa un valor." })}
-                                    className="form-control"
-                                    id="tcafe">
-                                    <option value="">elige tipo de cafe..</option>
+                                    variant="bordered"
+                                    label="Selecciona tipo de café.."
+                                    className="max-w-xs"
+                                    id="tcafe"
+                                >
                                     {typeSelects}
-                                </select>
+                                </Select>
                                 <p>{(!typeInput) ? "* Este campo es requerido. Ingresa un valor." : errors.typeOfCoffee?.message}</p>
                             </div>
                             <div>
-                                <label htmlFor="rcafe" className="form-label">Tostado de Café</label>
-                                <select
+                                <Select
                                     {...register("roastingProfile", { required: "* Este campo es requerido. Ingresa un valor." })}
-                                    className="form-control"
-                                    id="rcafe">
-                                    <option value="">elige tipo de tostado..</option>
+                                    variant="bordered"
+                                    label="Selecciona tipo de tostado.."
+                                    className="max-w-xs"
+                                    id="rcafe"
+                                >
                                     {roastSelects}
-                                </select>
+                                </Select>
                                 <p>{(!roastInput) ? "* Este campo es requerido. Ingresa un valor." : errors.roastingProfile?.message}</p>
                             </div>
                             <div>
-                                <label htmlFor="ocafe" className="form-label">Origen de Café</label>
-                                <select
+                                <Select
                                     {...register("origin", { required: "* Este campo es requerido. Ingresa un valor." })}
-                                    className="form-control"
-                                    id="ocafe">
-                                    <option value="">elige origen del cafe..</option>
+                                    variant="bordered"
+                                    label="Selecciona origen.."
+                                    className="max-w-xs"
+                                    id="ocafe"
+                                >
                                     {originSelects}
-                                </select>
+                                </Select>
                                 <p>{(!originInput) ? "* Este campo es requerido. Ingresa un valor." : errors.origin?.message}</p>
                             </div>
                             <div>

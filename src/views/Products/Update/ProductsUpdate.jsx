@@ -3,7 +3,15 @@ import axios from 'axios';
 import { useForm } from "react-hook-form"
 import { ToastContainer } from 'react-toastify';
 import { notifySuccess, notifyInfo } from '../../../functions/toastify';
-import { Button, image } from "@nextui-org/react";
+import {
+    Button,
+    image,
+    Input,
+    Textarea,
+    Select,
+    SelectSection,
+    SelectItem
+} from "@nextui-org/react";
 import { FaPen, FaEye, FaTrash } from "react-icons/fa";
 import NavigationBar from '../../../components/NavBar/NavigationBar';
 import { useParams } from 'react-router-dom';
@@ -166,7 +174,7 @@ const ProductsUpdate = () => {
             const auth_token = localStorage.getItem("auth_token")
             const { data } = await axios.put(`coffee/${coffee?.id}`, {
                 data: updateData
-            }, {headers:{auth_token}} );
+            }, { headers: { auth_token } });
             const { status } = data;
             if (status) {
                 notifySuccess("¡Producto actualizado con exito!");
@@ -184,6 +192,8 @@ const ProductsUpdate = () => {
         const { type } = item;
         return <option value={type} key={i} selected={(coffee.TypeOfCoffee?.type === type) ? true : ''}>{type}</option>
     });
+
+
     const roastSelects = roasts.map((item, i) => {
         const { profile } = item;
         return <option value={profile} key={i} selected={(coffee.RoastingProfile?.profile === profile) ? true : ''}>{profile}</option>
@@ -192,7 +202,6 @@ const ProductsUpdate = () => {
         const { origin } = item;
         return <option value={origin} key={i} selected={(coffee.Origin?.origin === origin) ? true : ''}>{origin}</option>
     });
-
     return (
         <div className="form-create-container">
             <NavigationBar />
@@ -225,13 +234,14 @@ const ProductsUpdate = () => {
                             }
                         })}>
                             <div>
-                                <div>
-                                    <label htmlFor="icafe" className="form-label">Imagen del Café</label>
-                                    <input
+                                <div className="inputs-cont">
+                                    <Input
                                         {...register("file")}
-                                        type="file"
-                                        className="form-control"
                                         id="icafe"
+                                        type="file"
+                                        variant="bordered"
+                                        label="Image"
+                                        placeholder="Selecciona una imagen.."
                                         onChange={handleChange}
                                         disabled
                                     />
@@ -252,16 +262,15 @@ const ProductsUpdate = () => {
                                 </div>
                                 {/**<p>{errors.file?.message}</p> */}
                             </div>
-                            <div>
-                                <label htmlFor="ncafe" className="form-label">Nombre del Café</label>
-                                <input
-                                    {...register("name", {
-                                        required: "* Este campo es requerido. Ingresa un valor."
-                                    })}
-                                    type="text"
-                                    className="form-control"
+                            <br/>
+                            <div className="inputs-cont">
+                                <Input
+                                    {...register("name", { required: "* Este campo es requerido. Ingresa un valor." })}
                                     id="ncafe"
-                                    placeholder="introduce nombre del café..."
+                                    type="text"
+                                    variant="bordered"
+                                    label="Nombre de café"
+                                    placeholder="Introduce un nombre.."
                                     disabled
                                 />
                                 <Button
@@ -278,17 +287,20 @@ const ProductsUpdate = () => {
 
                                     }}
                                 ><FaPen /></Button>
-                                <p>{errors.name?.message}</p>
                             </div>
-                            <div>
-                                <label htmlFor="dcafe" className="form-label">Descripción del Café</label>
-                                <textarea
+                            <p>{errors.name?.message}</p>
+                            <div className="inputs-cont">
+                                <Textarea
                                     {...register("description", { required: "* Este campo es requerido. Ingresa un valor." })}
-                                    className="form-control"
                                     id="dcafe"
-                                    rows="3"
+                                    variant="bordered"
+                                    label="Description"
+                                    // labelPlacement="outside"
+                                    placeholder="Introduce una descripción.."
                                     defaultValue={coffee?.description}
-                                    disabled></textarea>
+                                    className="col-span-12 md:col-span-6 mb-6 md:mb-0"
+                                    disabled
+                                />
                                 <Button
                                     size="sm"
                                     onClick={() => {
@@ -303,23 +315,19 @@ const ProductsUpdate = () => {
 
                                     }}
                                 ><FaPen /></Button>
-                                <p>{errors.description?.message}</p>
                             </div>
-
-                            <div>
-                                <label htmlFor="pcafe" className="form-label">Precio del Café</label>
-                                <input
-                                    {...register("price",
-                                        {
-                                            required: "* Este campo es requerido. Ingresa un valor.",
-                                            min: { value: 1, message: "El valor minimo permitido es 1" }
-                                        }
-                                    )}
-                                    type="number"
-                                    className="form-control"
-                                    defaultValue={coffee?.price}
+                            <p>{errors.description?.message}</p>
+                            <div className="inputs-cont">
+                                <Input
+                                    {...register("price", { required: "* Este campo es requerido. Ingresa un valor." })}
                                     id="pcafe"
-                                    disabled />
+                                    type="number"
+                                    variant="bordered"
+                                    label="Price"
+                                    defaultValue={coffee?.price}
+                                    placeholder="Establece precio.."
+                                    disabled
+                                />
                                 <Button
                                     size="sm"
                                     onClick={() => {
@@ -334,22 +342,24 @@ const ProductsUpdate = () => {
 
                                     }}
                                 ><FaPen /></Button>
-                                <p>{errors.price?.message}</p>
                             </div>
-                            <div>
-                                <label htmlFor="scafe" className="form-label">Stock del Café</label>
-                                <input
+                            <p>{errors.price?.message}</p>
+                            <div className="inputs-cont">
+                                <Input
                                     {...register("stock",
                                         {
                                             required: "* Este campo es requerido. Ingresa un valor.",
                                             min: { value: 1, message: "El valor minimo permitido es 1" }
                                         })
                                     }
-                                    type="number"
-                                    className="form-control"
-                                    defaultValue={coffee?.stock}
                                     id="scafe"
-                                    disabled />
+                                    type="number"
+                                    variant="bordered"
+                                    label="Stock"
+                                    defaultValue={coffee?.stock}
+                                    placeholder="Establece stock.."
+                                    disabled
+                                />
                                 <Button
                                     size="sm"
                                     onClick={() => {
@@ -364,81 +374,87 @@ const ProductsUpdate = () => {
 
                                     }}
                                 ><FaPen /></Button>
-                                <p>{errors.stock?.message}</p>
                             </div>
-                            <div>
-                                <label htmlFor="tcafe" className="form-label">Tipo de Café</label>
-                                <select
-                                    {...register("typeOfCoffee", { required: "* Este campo es requerido. Ingresa un valor." })}
-                                    className="form-control"
-                                    id="tcafe"
-                                    disabled>
-                                    {typeSelects}
-                                </select>
-                                <Button
-                                    size="sm"
-                                    onClick={() => {
-                                        const inputName = document.getElementById('tcafe');
-                                        if (inputName.disabled) {
-                                            inputName.disabled = false;
-                                            submitable.push(true);
-                                        } else {
-                                            inputName.disabled = true;
-                                            submitable.pop();
-                                        }
+                            <p>{errors.stock?.message}</p>
+                            <div >
+                                <label htmlFor="rcafe" className="form-label">Tipo de Café</label>
+                                <div className="inputs-cont">
+                                    <select
+                                        {...register("typeOfCoffee", { required: "* Este campo es requerido. Ingresa un valor." })}
+                                        className="form-control"
+                                        id="tcafe"
+                                        disabled>
+                                        {typeSelects}
+                                    </select>
+                                    <Button
+                                        size="sm"
+                                        onClick={() => {
+                                            const inputName = document.getElementById('tcafe');
+                                            if (inputName.disabled) {
+                                                inputName.disabled = false;
+                                                submitable.push(true);
+                                            } else {
+                                                inputName.disabled = true;
+                                                submitable.pop();
+                                            }
 
-                                    }}
-                                ><FaPen /></Button>
-                                <p>{errors.typeOfCoffee?.message}</p>
+                                        }}
+                                    ><FaPen /></Button>
+                                </div>
                             </div>
+                            <p>{errors.typeOfCoffee?.message}</p>
                             <div>
                                 <label htmlFor="rcafe" className="form-label">Tostado de Café</label>
-                                <select
-                                    {...register("roastingProfile", { required: "* Este campo es requerido. Ingresa un valor." })}
-                                    className="form-control"
-                                    id="rcafe"
-                                    disabled>
-                                    {roastSelects}
-                                </select>
-                                <Button
-                                    size="sm"
-                                    onClick={() => {
-                                        const inputName = document.getElementById('rcafe');
-                                        if (inputName.disabled) {
-                                            inputName.disabled = false;
-                                            submitable.push(true);
-                                        } else {
-                                            inputName.disabled = true;
-                                            submitable.pop();
-                                        }
+                                <div className="inputs-cont">
+                                    <select
+                                        {...register("roastingProfile", { required: "* Este campo es requerido. Ingresa un valor." })}
+                                        className="form-control"
+                                        id="rcafe"
+                                        disabled>
+                                        {roastSelects}
+                                    </select>
+                                    <Button
+                                        size="sm"
+                                        onClick={() => {
+                                            const inputName = document.getElementById('rcafe');
+                                            if (inputName.disabled) {
+                                                inputName.disabled = false;
+                                                submitable.push(true);
+                                            } else {
+                                                inputName.disabled = true;
+                                                submitable.pop();
+                                            }
 
-                                    }}
-                                ><FaPen /></Button>
+                                        }}
+                                    ><FaPen /></Button>
+                                </div>
                                 <p>{errors.roastingProfile?.message}</p>
                             </div>
                             <div>
                                 <label htmlFor="ocafe" className="form-label">Origen de Café</label>
-                                <select
-                                    {...register("origin", { required: "* Este campo es requerido. Ingresa un valor." })}
-                                    className="form-control"
-                                    id="ocafe"
-                                    disabled>
-                                    {originSelects}
-                                </select>
-                                <Button
-                                    size="sm"
-                                    onClick={() => {
-                                        const inputName = document.getElementById('ocafe');
-                                        if (inputName.disabled) {
-                                            inputName.disabled = false;
-                                            submitable.push(true);
-                                        } else {
-                                            inputName.disabled = true;
-                                            submitable.pop();
-                                        }
+                                <div className="inputs-cont">
+                                    <select
+                                        {...register("origin", { required: "* Este campo es requerido. Ingresa un valor." })}
+                                        className="form-control"
+                                        id="ocafe"
+                                        disabled>
+                                        {originSelects}
+                                    </select>
+                                    <Button
+                                        size="sm"
+                                        onClick={() => {
+                                            const inputName = document.getElementById('ocafe');
+                                            if (inputName.disabled) {
+                                                inputName.disabled = false;
+                                                submitable.push(true);
+                                            } else {
+                                                inputName.disabled = true;
+                                                submitable.pop();
+                                            }
 
-                                    }}
-                                ><FaPen /></Button>
+                                        }}
+                                    ><FaPen /></Button>
+                                </div>
                                 <p>{errors.origin?.message}</p>
                             </div>
                             <div>

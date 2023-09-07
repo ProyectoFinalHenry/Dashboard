@@ -38,7 +38,8 @@
     width: 50%;
     margin: auto;
     padding: 4rem;
-    background-color: #e9c277;
+    border: 4px solid #ddb06f;
+    border-radius: 10px;
 }
 
 .form-header-text {
@@ -65,16 +66,28 @@
 }
 
 .form-submit-button {
-    color: #ffffff;
+    color: #ddb06f;
     background-color: chocolate;
     padding: 6px 20px;
     display: inline-block;
-    border: 1px solid chocolate;
+    border: 3px solid #ddb06f;
     border-radius: 4px;
     box-sizing: border-box;
     cursor: pointer;
-    width: 60%;
+    width: 82%;
     margin: revert-layer;
-    margin-left: 7rem;
+    margin-right: revert-layer;
+    margin-left: revert-layer;
+    margin-left: 3rem;
     margin-right: 1rem;
+    font-weight: bolder;
+}
+
+.inputs-cont {
+    display: flex;
+}
+
+.inputs-cont button {
+    margin: auto;
+    background-color: #fdfeff;
 }

@@ -37,7 +37,7 @@ function AdminLogin() {
     try {
       const { auth_token } = (await axios.post("management/login", data)).data
       localStorage.setItem("auth_token", auth_token);
-      navigate("/products");
+      navigate("/panel");
     } catch (error) {
       notifyError(error.response.data.error);
     }

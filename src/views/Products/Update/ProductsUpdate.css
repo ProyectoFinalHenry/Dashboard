@@ -2,3 +2,19 @@
     margin: 1rem;
     padding: 1rem;
 }
+
+.form-create select {
+    width: -moz-available;
+    padding: 1rem;
+    border-radius: 8px;
+    border-color: color;
+    border: #d4d4d8;
+    border: 1px solid #d4d4d894;
+}
+.inputs-cont{
+    display: flex;
+}
+.inputs-cont button{
+    margin: auto;
+    background-color: #fdfeff;
+}

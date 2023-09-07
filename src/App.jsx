@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation, Navigate, useNavigate } from 'react-router-dom';
 import ProductsList from './views/Products/List/ProductsList.jsx';
 import ProductsCreate from './views/Products/Create/ProductsCreate.jsx';
 import ProductsDetail from './views/Products/Detail/ProductsDetail.jsx';
@@ -8,8 +8,19 @@ import AdminLogin from './views/AdminLogin/AdminLogin.jsx'
 import Users from './views/Users/Users.jsx';
 import SalesList from './views/Sales/SalesList.jsx';
 import './App.css'
+import { useEffect, useState } from 'react';
 
 function App() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("auth_token");
+    if (!token && location.pathname !== "/") {
+      navigate("/");
+    }
+  }, [location]);
+
   return (
     <div>
       <Routes>

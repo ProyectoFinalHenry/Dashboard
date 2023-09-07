@@ -32,6 +32,10 @@ const ProductsList = () => {
     ]
     const columns = [
         {
+            key: "image",
+            label: "IMAGEN",
+        },
+        {
             key: "name",
             label: "NOMBRE",
         },

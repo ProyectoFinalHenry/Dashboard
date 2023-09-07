@@ -25,3 +25,8 @@
     border-radius: 4px;
     font-weight: bolder;
 }
+
+table img{
+    height: 3rem;
+    width: 3rem;
+}

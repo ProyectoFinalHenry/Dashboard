@@ -99,6 +99,7 @@ const TableComponent = ({ data, columns, actions }) => {
             onChange={(page) => setPage(page)}
         />
     </div>;
+    console.log(items);
     return (
         <div className="table-products-cont">
             <ToastContainer
@@ -135,7 +136,7 @@ const TableComponent = ({ data, columns, actions }) => {
                                                 ? (item.isActive === true)
                                                     ? <span className="product-status-active">{getKeyValue("activo", columnKey)}</span>
                                                     : <span className="product-status-inactive">{getKeyValue("inactivo", columnKey)}</span>
-                                                : getKeyValue(item, columnKey)
+                                                : (columnKey === "image") ? <img src={item.image} /> : getKeyValue(item, columnKey)
                                     }
                                 </TableCell>}
                         </TableRow>

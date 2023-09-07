@@ -49,7 +49,7 @@ function AdminLogin() {
       <form className='admin-login__form' onSubmit={handleSubmit}>
         <h2 className="admin-login__title">Admin Login</h2>
         <div className="admin-login__form-group">
-          <label className='admin-login__form-label'>Enter your email</label>
+          <label className='admin-login__form-label'>Ingresa tu Email</label>
           <FaUser className='admin-login__form-icon' />
           <input className='admin-login__form-input'
             type="email"
@@ -59,7 +59,7 @@ function AdminLogin() {
         </div>
 
         <div className= "admin-login__form-group">
-          <label className='admin-login__form-label'>Enter your password</label>
+          <label className='admin-login__form-label'>Ingresa tu contraseña</label>
           <BiSolidLockAlt className='admin-login__form-icon' />
           <input
             className="admin-login__form-input"
@@ -70,10 +70,10 @@ function AdminLogin() {
         </div>
 
         <div className='admin-login__form-group-message-btn'>
-          <span className='admin-login__form-span'>Recover my account</span>
+          <span className='admin-login__form-span'>Recuperar mi cuenta</span>
           <button className='admin-login__form-button' type="submit"
           disabled={errors}
-          >Login</button>
+          >Ingresar</button>
         </div>
 
         {errors && <span className={errors? "admin-login__error" : ''}>{errors === true ? "Enter your credentials" : errors}</span>}

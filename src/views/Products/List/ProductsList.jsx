@@ -10,17 +10,7 @@ import BreadCum from "../../../components/BreadCum/BreadCum";
 
 const ProductsList = () => {
 
-    const [product, setProducts] = useState([]);
     const navigate = useNavigate();
-
-    async function getProducts() {
-        const { data } = await axios.get("coffee/");
-        setProducts(data)
-    }
-
-    useEffect(() => {
-        getProducts()
-    }, []);
 
     const breadCumItems = [
         'Productos',
@@ -74,7 +64,7 @@ const ProductsList = () => {
                     onClick={handleCreateProduct}><FaPlus />
                 </Button>
             </div>
-            <TableComponent columns={columns} actions={actions} data={product} />
+            <TableComponent columns={columns} actions={actions} />
         </div >
     )
 }

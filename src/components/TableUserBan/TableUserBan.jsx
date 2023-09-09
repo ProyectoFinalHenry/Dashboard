@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Table,
   TableHeader,
@@ -8,24 +8,57 @@ import {
   TableCell,
   Pagination,
   getKeyValue,
+  Spinner
 } from "@nextui-org/react";
+import { useAsyncList } from "@react-stately/data";
 import { Button } from "@nextui-org/react";
 import { FaBan, FaCheck } from "react-icons/fa";
 import "./TableUserBan.css";
 
-const TableUserBan = ({ columns, data, handleActivateDeactivate }) => {
+const TableUserBan = ({ columns, handleActivateDeactivate, renderState }) => {
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [render, setRender] = useState(renderState);
+  const auth_token = localStorage.getItem("auth_token");
+  let list = useAsyncList({
+    async load({ signal }) {
+      let res = await fetch('https://backend-mniu.onrender.com/management/user', {
+        signal,
+        headers: { auth_token },
+      });
+      let json = await res.json();
+      setIsLoading(false);
+      return {
+        items: json,
+      };
+    },
+    async sort({ items, sortDescriptor }) {
+      return {
+        items: items.sort((a, b) => {
+          let first = a[sortDescriptor.column];
+          let second = b[sortDescriptor.column];
+          let cmp = (parseInt(first) || first) < (parseInt(second) || second) ? -1 : 1;
+
+          if (sortDescriptor.direction === "descending") {
+            cmp *= -1;
+          }
+
+          return cmp;
+        }),
+      };
+    },
+  });
   const [page, setPage] = React.useState(1);
 
   const rowsPerPage = 10;
 
-  const pages = Math.ceil(data.length / rowsPerPage);
+  const pages = Math.ceil(list.items.length / rowsPerPage);
 
   const items = React.useMemo(() => {
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
 
-    return data.slice(start, end);
-  }, [page, data]);
+    return list.items.slice(start, end);
+  }, [page, list.items]);
 
   const getIcon = (type) => {
     switch (type) {
@@ -54,15 +87,23 @@ const TableUserBan = ({ columns, data, handleActivateDeactivate }) => {
     <div>
       <Table
         aria-label="Example table with dynamic content"
-        classNames={{ wrapper: "min-h-[222px]" }}
+        sortDescriptor={list.sortDescriptor}
+        onSortChange={list.sort}
+        classNames={{
+          wrapper: "min-h-[222px]",
+          table: "min-h-[400px]",
+        }}
         bottomContent={pagination}
       >
         <TableHeader columns={columns}>
           {(column) => (
-            <TableColumn key={column.key}>{column.label}</TableColumn>
+            <TableColumn key={column.key} allowsSorting>{column.label}</TableColumn>
           )}
         </TableHeader>
-        <TableBody items={items}>
+        <TableBody
+          items={items}
+          isLoading={isLoading}
+          loadingContent={<Spinner label="Loading..." />}>
           {(item) => (
             <TableRow key={item.id}>
               {(columnKey) => (

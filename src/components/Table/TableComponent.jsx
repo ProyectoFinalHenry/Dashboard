@@ -7,8 +7,10 @@ import {
     TableRow,
     TableCell,
     Pagination,
-    getKeyValue
+    getKeyValue,
+    Spinner
 } from "@nextui-org/react";
+import { useAsyncList } from "@react-stately/data";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@nextui-org/react";
 import axios from "axios";
@@ -17,17 +19,48 @@ import { notifySuccess } from "../../functions/toastify";
 import { ToastContainer } from 'react-toastify';
 import './Table.css';
 
-const TableComponent = ({ data, columns, actions }) => {
+const TableComponent = ({ columns, actions }) => {
+
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = React.useState(true);
+    let list = useAsyncList({
+        async load({ signal }) {
+            let res = await fetch('https://backend-mniu.onrender.com/coffee', {
+                signal,
+            });
+            let json = await res.json();
+            setIsLoading(false);
+
+            return {
+                items: json,
+            };
+        },
+        async sort({ items, sortDescriptor }) {
+            return {
+                items: items.sort((a, b) => {
+                    let first = a[sortDescriptor.column];
+                    let second = b[sortDescriptor.column];
+                    let cmp = (parseInt(first) || first) < (parseInt(second) || second) ? -1 : 1;
+
+                    if (sortDescriptor.direction === "descending") {
+                        cmp *= -1;
+                    }
+
+                    return cmp;
+                }),
+            };
+        },
+    });
+
     const [page, setPage] = React.useState(1);
     const rowsPerPage = 10;
-    const pages = Math.ceil(data.length / rowsPerPage);
+    const pages = Math.ceil(list.items.length / rowsPerPage);
     const items = React.useMemo(() => {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
 
-        return data.slice(start, end);
-    }, [page, data]);
+        return list.items.slice(start, end);
+    }, [page, list.items]);
 
     const getIcon = (type) => {
         switch (type) {
@@ -99,7 +132,6 @@ const TableComponent = ({ data, columns, actions }) => {
             onChange={(page) => setPage(page)}
         />
     </div>;
-    console.log(items);
     return (
         <div className="table-products-cont">
             <ToastContainer
@@ -116,14 +148,21 @@ const TableComponent = ({ data, columns, actions }) => {
             />
             <Table
                 aria-label="Example table with dynamic content"
+                sortDescriptor={list.sortDescriptor}
+                onSortChange={list.sort}
                 bottomContent={pagination}
                 classNames={{
                     wrapper: "min-h-[222px]",
+                    table: "min-h-[400px]",
                 }}>
                 <TableHeader columns={columns}>
-                    {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
+                    {(column) => <TableColumn key={column.key} allowsSorting>{column.label}</TableColumn>}
                 </TableHeader>
-                <TableBody items={items}>
+                <TableBody
+                    items={items}
+                    isLoading={isLoading}
+                    loadingContent={<Spinner label="Loading..." />}
+                >
                     {(item) => (
                         < TableRow key={item.id}>
                             {(columnKey) =>
@@ -145,6 +184,74 @@ const TableComponent = ({ data, columns, actions }) => {
             </Table>
         </div >
     )
+    /*
+    const [isLoading, setIsLoading] = React.useState(true);
+
+    let list = useAsyncList({
+        async load({ signal }) {
+            let res = await fetch('https://backend-mniu.onrender.com/coffee', {
+                signal,
+            });
+            let json = await res.json();
+            setIsLoading(false);
+
+            return {
+                items: json,
+            };
+        },
+        async sort({ items, sortDescriptor }) {
+            return {
+                items: items.sort((a, b) => {
+                    let first = a[sortDescriptor.column];
+                    let second = b[sortDescriptor.column];
+                    let cmp = (parseInt(first) || first) < (parseInt(second) || second) ? -1 : 1;
+
+                    if (sortDescriptor.direction === "descending") {
+                        cmp *= -1;
+                    }
+
+                    return cmp;
+                }),
+            };
+        },
+    });
+
+    return (
+        <Table
+            aria-label="Example table with client side sorting"
+            sortDescriptor={list.sortDescriptor}
+            onSortChange={list.sort}
+            classNames={{
+                table: "min-h-[400px]",
+            }}
+        >
+            <TableHeader>
+                <TableColumn key="name" allowsSorting>
+                    Name
+                </TableColumn>
+                <TableColumn key="height" allowsSorting>
+                    Height
+                </TableColumn>
+                <TableColumn key="mass" allowsSorting>
+                    Mass
+                </TableColumn>
+                <TableColumn key="birth_year" allowsSorting>
+                    Birth year
+                </TableColumn>
+            </TableHeader>
+            <TableBody
+                items={list.items}
+                isLoading={isLoading}
+                loadingContent={<Spinner label="Loading..." />}
+            >
+                {(item) => (
+                    <TableRow key={item.name}>
+                        {(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}
+                    </TableRow>
+                )}
+            </TableBody>
+        </Table>
+    );*/
 }
 
 export default TableComponent;

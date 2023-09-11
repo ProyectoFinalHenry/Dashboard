@@ -9,9 +9,10 @@ const BreadCum = ({ items }) => {
         <div className='page-breadcum-cont'>
             <ol className='page-breadcum'>
                 <li>Grano de Oro</li>
-                {items.map((item) => {
+                {items.map((item, i) => {
                     return <span
-                        style={{ display: 'inline-flex' }}>
+                        style={{ display: 'inline-flex' }}
+                        key={i}>
                         <TbSlash />
                         <li>{item}</li>
                     </span>

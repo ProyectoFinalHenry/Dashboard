@@ -8,6 +8,7 @@
 
 .table-products-cont {
     padding: 1rem;
+    margin-top: 3rem;
 }
 
 .product-status-active {
@@ -26,7 +27,13 @@
     font-weight: bolder;
 }
 
-table img{
+.filters-elements-cont span {
+    display: flex;
+    float: right;
+    margin: 1rem 0rem 1rem 0rem;
+}
+
+table img {
     height: 3rem;
     width: 3rem;
 }

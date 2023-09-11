@@ -1,5 +1,6 @@
 .table-users-cont {
-  margin: 1rem;
+  padding: 1rem;
+  margin-top: 3rem;
 }
 
 .inactive-cell {
@@ -9,6 +10,7 @@
   border-radius: 4px;
   font-weight: bolder;
 }
+
 .active-cell {
   color: white;
   background-color: green;

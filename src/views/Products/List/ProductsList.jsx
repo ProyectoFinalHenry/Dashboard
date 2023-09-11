@@ -9,7 +9,6 @@ import './ProductsList.css';
 import BreadCum from "../../../components/BreadCum/BreadCum";
 
 const ProductsList = () => {
-
     const navigate = useNavigate();
 
     const breadCumItems = [
@@ -64,7 +63,10 @@ const ProductsList = () => {
                     onClick={handleCreateProduct}><FaPlus />
                 </Button>
             </div>
-            <TableComponent columns={columns} actions={actions} />
+            <TableComponent
+                columns={columns}
+                actions={actions}
+            />
         </div >
     )
 }
